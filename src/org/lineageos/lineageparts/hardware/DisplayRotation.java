@@ -70,7 +70,7 @@ public class DisplayRotation extends SettingsPreferenceFragment {
         mRotation270Pref = prefSet.findPreference(ROTATION_270_PREF);
 
         int mode = Settings.System.getIntForUser(getContentResolver(),
-                Settings.System.ACCELEROMETER_ROTATION_ANGLES,
+                "accelerometer_rotation_angles",
                 ROTATION_0_MODE | ROTATION_90_MODE | ROTATION_270_MODE, UserHandle.USER_CURRENT);
 
         mRotation0Pref.setChecked((mode & ROTATION_0_MODE) != 0);
@@ -133,7 +133,7 @@ public class DisplayRotation extends SettingsPreferenceFragment {
                 mRotation0Pref.setChecked(true);
             }
             Settings.System.putIntForUser(getActivity().getContentResolver(),
-                    Settings.System.ACCELEROMETER_ROTATION_ANGLES, mode, UserHandle.USER_CURRENT);
+                    "accelerometer_rotation_angles", mode, UserHandle.USER_CURRENT);
             return true;
         }
 

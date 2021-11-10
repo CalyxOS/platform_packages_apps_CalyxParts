@@ -25,7 +25,6 @@
     <uses-permission android:name="lineageos.permission.MANAGE_REMOTE_PREFERENCES" />
 
     <protected-broadcast android:name="lineageos.intent.action.UPDATE_POWER_MENU" />
-    <protected-broadcast android:name="lineageos.platform.app.profiles.PROFILES_STATE_CHANGED" />
     <protected-broadcast android:name="org.lineageos.lineageparts.PART_CHANGED" />
     <protected-broadcast android:name="org.lineageos.lineageparts.REFRESH_PART" />
     <protected-broadcast android:name="org.lineageos.lineageparts.gestures.UPDATE_SETTINGS" />
@@ -141,38 +140,6 @@
         </activity-alias>
 
         <activity android:name=".gestures.KeyHandler" />
-
-        <!-- Profiles settings (System category) -->
-        <activity-alias
-            android:name=".profiles.ProfilesSettings"
-            android:exported="true"
-            android:label="@string/profiles_settings_title"
-            android:targetActivity="PartsActivity">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-                <action android:name="org.lineageos.lineageparts.PROFILES_SETTINGS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.system" />
-            <meta-data
-                android:name="com.android.settings.icon"
-                android:resource="@drawable/ic_settings_profiles" />
-            <meta-data
-                android:name="com.android.settings.icon_tintable"
-                android:value="true" />
-            <meta-data
-                android:name="com.android.settings.order"
-                android:value="-255" />
-            <meta-data
-                android:name="com.android.settings.profile"
-                android:value="primary_profile_only" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/summary_empty" />
-        </activity-alias>
 
         <!-- Rotation settings -->
         <activity-alias
@@ -290,21 +257,6 @@
         <service
             android:name=".lineagestats.StatsUploadJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <activity
-            android:name=".profiles.NFCProfile"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="lineage/profile" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".profiles.NFCProfileSelect"
-            android:excludeFromRecents="true"
-            android:label="@string/profile_select" />
 
         <activity
             android:name=".logo.PlatLogoActivity"

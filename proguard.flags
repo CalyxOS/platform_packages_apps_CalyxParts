@@ -16,7 +16,6 @@
 -keep class org.lineageos.lineageparts.notificationlight.*
 -keep class org.lineageos.lineageparts.power.*
 -keep class org.lineageos.lineageparts.privacyguard.*
--keep class org.lineageos.lineageparts.profiles.*
 -keep class org.lineageos.lineageparts.sounds.*
 
 # Keep keyhandler constructor

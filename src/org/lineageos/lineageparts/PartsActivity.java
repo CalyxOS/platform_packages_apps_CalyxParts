@@ -36,7 +36,6 @@ import androidx.preference.PreferenceFragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceScreen;
 
-import org.lineageos.lineageparts.profiles.NFCProfileTagCallback;
 import org.lineageos.lineageparts.widget.SwitchBar;
 import org.lineageos.internal.lineageparts.PartInfo;
 import org.lineageos.internal.lineageparts.PartsList;
@@ -54,8 +53,6 @@ public class PartsActivity extends FragmentActivity implements
     public static final String EXTRA_FRAGMENT_ARG_KEY = ":settings:fragment_args_key";
     public static final String EXTRA_SHOW_FRAGMENT_TITLE_RESID =
             ":settings:show_fragment_title_resid";
-
-    private NFCProfileTagCallback mNfcProfileCallback;
 
     private CharSequence mInitialTitle;
 
@@ -158,22 +155,6 @@ public class PartsActivity extends FragmentActivity implements
         startPreferencePanel(pref.getFragment(), pref.getExtras(), -1, pref.getTitle(),
                 null, 0);
         return true;
-    }
-
-    public void setNfcProfileCallback(NFCProfileTagCallback callback) {
-        mNfcProfileCallback = callback;
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
-            Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            if (mNfcProfileCallback != null) {
-                mNfcProfileCallback.onTagRead(detectedTag);
-            }
-            return;
-        }
-        super.onNewIntent(intent);
     }
 
     @Override

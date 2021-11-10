@@ -127,8 +127,6 @@
                 android:resource="@string/summary_empty" />
         </activity-alias>
 
-        <activity android:name=".gestures.KeyHandler" />
-
         <!-- Status bar settings (System category) -->
         <activity-alias
             android:name=".statusbar.StatusBarSettings"

@@ -15,6 +15,4 @@
         <attr name="defaultValue" />
         <attr name="digits" format="integer" />
     </declare-styleable>
-
-    <attr name="wifi_signal_color" format="reference" />
 </resources>

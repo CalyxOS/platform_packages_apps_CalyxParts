@@ -4,7 +4,7 @@
  */
 
 android_app {
-    name: "LineageParts",
+    name: "CalyxParts",
 
     // Include SettingsLib and it's dependencies
     defaults: ["SettingsLibDefaults"],

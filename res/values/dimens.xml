@@ -21,9 +21,6 @@
     <dimen name="pager_tabs_title_padding">16dp</dimen>
     <dimen name="pager_tabs_selected_indicator_height">3dp</dimen>
 
-    <!-- System profiles -->
-    <dimen name="profile_instruction_padding">8dp</dimen>
-
     <!-- Trust onBoarding -->
     <dimen name="trust_logo_vertical_margin">48dp</dimen>
     <dimen name="trust_logo_horizontal_margin">40dp</dimen>

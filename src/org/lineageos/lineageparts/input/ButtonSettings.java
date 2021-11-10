@@ -65,7 +65,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
         implements Preference.OnPreferenceChangeListener, Searchable {
     private static final String TAG = "SystemSettings";
 
-    private static final String KEY_BUTTON_BACKLIGHT = "button_backlight";
     private static final String KEY_BACK_WAKE_SCREEN = "back_wake_screen";
     private static final String KEY_CAMERA_LAUNCH = "camera_launch";
     private static final String KEY_CAMERA_SLEEP_ON_RELEASE = "camera_sleep_on_release";
@@ -115,7 +114,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private static final String CATEGORY_APPSWITCH = "app_switch_key";
     private static final String CATEGORY_CAMERA = "camera_key";
     private static final String CATEGORY_VOLUME = "volume_keys";
-    private static final String CATEGORY_BACKLIGHT = "key_backlight";
     private static final String CATEGORY_NAVBAR = "navigation_bar_category";
     private static final String CATEGORY_EXTRAS = "extras_category";
 
@@ -439,12 +437,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
             prefScreen.removePreference(mNavigationPreferencesCat);
         }
 
-        final ButtonBacklightBrightness backlight = findPreference(KEY_BUTTON_BACKLIGHT);
-        if (!DeviceUtils.hasButtonBacklightSupport(getActivity())
-                && !DeviceUtils.hasKeyboardBacklightSupport(getActivity())) {
-            prefScreen.removePreference(backlight);
-        }
-
         if (mCameraWakeScreen != null) {
             if (mCameraSleepOnRelease != null && !res.getBoolean(
                     org.lineageos.platform.internal.R.bool.config_singleStageCameraKey)) {
@@ -668,15 +660,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 prefScreen.findPreference(CATEGORY_ASSIST);
         final PreferenceCategory appSwitchCategory =
                 prefScreen.findPreference(CATEGORY_APPSWITCH);
-        final ButtonBacklightBrightness backlight =
-                (ButtonBacklightBrightness) prefScreen.findPreference(KEY_BUTTON_BACKLIGHT);
-
-        /* Toggle backlight control depending on navbar state, force it to
-           off if enabling */
-        if (backlight != null) {
-            backlight.setEnabled(!navbarEnabled);
-            backlight.updateSummary();
-        }
 
         /* Toggle hardkey control availability depending on navbar state */
         if (mNavigationPreferencesCat != null) {
@@ -946,11 +929,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
             if (!isKeySwapperSupported(context)) {
                 result.add(KEY_SWAP_CAPACITIVE_KEYS);
-            }
-
-            if (!DeviceUtils.hasButtonBacklightSupport(context)
-                    && !DeviceUtils.hasKeyboardBacklightSupport(context)) {
-                result.add(KEY_BUTTON_BACKLIGHT);
             }
 
             if (hasNavigationBar()) {

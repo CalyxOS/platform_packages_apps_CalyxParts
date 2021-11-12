@@ -196,31 +196,6 @@
                 android:resource="@string/summary_empty" />
         </activity-alias>
 
-        <!-- Anonymous Statistics -->
-        <receiver android:name=".lineagestats.ReportingServiceManager"
-            android:enabled="true"
-            android:exported="false"
-            android:label="ReportingServiceManager">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="org.lineageos.lineageparts.action.TRIGGER_REPORT_METRICS" />
-            </intent-filter>
-        </receiver>
-
-        <service android:label="ReportingService"
-            android:enabled="true"
-            android:exported="false"
-            android:name=".lineagestats.ReportingService">
-        </service>
-
-        <service android:name=".lineagestats.StatsUploadJobService"
-                 android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <service android:name=".lineagestats.ReportingService"
-                 android:label="ReportingService"
-                 android:enabled="true"
-                 android:exported="false" />
-
         <activity android:name=".egg.octo.Ocquarium"
             android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen"
             android:label="@string/egg_title">

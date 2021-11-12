@@ -15,7 +15,6 @@ import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
-import org.lineageos.lineageparts.contributors.ContributorsCloudFragment;
 import org.lineageos.lineageparts.gestures.TouchscreenGestureSettings;
 import org.lineageos.lineageparts.input.ButtonSettings;
 import org.lineageos.lineageparts.livedisplay.LiveDisplaySettings;

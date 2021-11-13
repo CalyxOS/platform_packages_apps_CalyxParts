@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acc73df8_db23fdaf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-11-13T17:04:08Z",
+      "side": 1,
+      "message": "It\u0027d be nice to have something eventually.\n\nWe also wanted to show translators, both in the OS and on the website. Weblate does have that data.",
+      "revId": "9335ddffa7743d2ff047556a50b531aac12eca00",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}

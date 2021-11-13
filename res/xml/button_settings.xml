@@ -19,6 +19,7 @@
         android:key="button_settings"
         android:title="@string/button_pref_title">
 
+    <!--
     <SwitchPreference
         android:key="disable_nav_keys"
         android:title="@string/disable_navkeys_title"
@@ -30,6 +31,7 @@
         android:title="@string/swap_capacitive_keys_title"
         android:summary="@string/swap_capacitive_keys_summary"
         android:defaultValue="false" />
+    -->
 
     <PreferenceCategory
         android:key="navigation_bar_category"
@@ -41,6 +43,7 @@
                 android:summary="@string/navigation_bar_arrow_keys_summary"
                 android:defaultValue="false" />
 
+        <!--
         <lineageos.preference.SecureSettingSwitchPreference
                 android:key="sysui_nav_bar_inverse"
                 android:title="@string/navigation_bar_invert_layout_title"
@@ -86,9 +89,11 @@
             android:entries="@array/hardware_keys_action_entries"
             android:entryValues="@array/hardware_keys_action_values"
             android:persistent="false" />
+        -->
 
     </PreferenceCategory>
 
+    <!--
     <PreferenceCategory
         android:key="power_key"
         android:title="@string/hardware_keys_power_key_title" >
@@ -337,5 +342,6 @@
             android:defaultValue="false" />
 
     </PreferenceCategory>
+    -->
 
 </PreferenceScreen>

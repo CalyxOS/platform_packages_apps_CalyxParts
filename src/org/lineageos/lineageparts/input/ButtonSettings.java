@@ -65,6 +65,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
         implements Preference.OnPreferenceChangeListener, Searchable {
     private static final String TAG = "SystemSettings";
 
+    /*
     private static final String KEY_BACK_WAKE_SCREEN = "back_wake_screen";
     private static final String KEY_CAMERA_LAUNCH = "camera_launch";
     private static final String KEY_CAMERA_SLEEP_ON_RELEASE = "camera_sleep_on_release";
@@ -88,7 +89,9 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private static final String KEY_VOLUME_WAKE_SCREEN = "volume_wake_screen";
     private static final String KEY_VOLUME_ANSWER_CALL = "volume_answer_call";
     private static final String KEY_DISABLE_NAV_KEYS = "disable_nav_keys";
+    */
     private static final String KEY_NAVIGATION_ARROW_KEYS = "navigation_bar_menu_arrow_keys";
+    /*
     private static final String KEY_NAVIGATION_BACK_LONG_PRESS = "navigation_back_long_press";
     private static final String KEY_NAVIGATION_HOME_LONG_PRESS = "navigation_home_long_press";
     private static final String KEY_NAVIGATION_HOME_DOUBLE_TAP = "navigation_home_double_tap";
@@ -152,15 +155,19 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private Handler mHandler;
 
     private LineageHardwareManager mHardware;
+    */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /*
         mHardware = LineageHardwareManager.getInstance(getActivity());
+        */
 
         addPreferencesFromResource(R.xml.button_settings);
 
+        /*
         final Resources res = getResources();
         final ContentResolver resolver = getActivity().getContentResolver();
         final PreferenceScreen prefScreen = getPreferenceScreen();
@@ -268,8 +275,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
         } else {
             prefScreen.removePreference(mDisableNavigationKeys);
         }
-        updateDisableNavkeysCategories(mDisableNavigationKeys.isChecked(), /* force */ true);
+        */
+        //updateDisableNavkeysCategories(mDisableNavigationKeys.isChecked(), /* force */ true);
 
+        /*
         if (hasPowerKey) {
             if (!TelephonyUtils.isVoiceCapable(getActivity())) {
                 powerCategory.removePreference(mPowerEndCall);
@@ -519,8 +528,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
             mEdgeLongSwipeAction.setEntries(actionEntriesGo);
             mEdgeLongSwipeAction.setEntryValues(actionValuesGo);
         }
+        */
     }
 
+    /*
     @Override
     public void onResume() {
         super.onResume();
@@ -572,9 +583,11 @@ public class ButtonSettings extends SettingsPreferenceFragment
         pref.setSummary(pref.getEntries()[index]);
         Settings.System.putInt(getContentResolver(), setting, Integer.valueOf(value));
     }
+    */
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        /*
         if (preference == mBackLongPressAction ||
                 preference == mNavigationBackLongPressAction) {
             handleListChange((ListPreference) preference, newValue,
@@ -631,9 +644,11 @@ public class ButtonSettings extends SettingsPreferenceFragment
             mHardware.set(LineageHardwareManager.FEATURE_KEY_SWAP, (Boolean) newValue);
             return true;
         }
+        */
         return false;
     }
 
+    /*
     private static void writeDisableNavkeysOption(Context context, boolean enabled) {
         LineageSettings.System.putIntForUser(context.getContentResolver(),
                 LineageSettings.System.FORCE_SHOW_NAVBAR, enabled ? 1 : 0, UserHandle.USER_CURRENT);
@@ -648,8 +663,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
     private void updateDisableNavkeysCategories(boolean navbarEnabled, boolean force) {
         final PreferenceScreen prefScreen = getPreferenceScreen();
+        */
 
         /* Disable hw-key options if they're disabled */
+        /*
         final PreferenceCategory homeCategory =
                 prefScreen.findPreference(CATEGORY_HOME);
         final PreferenceCategory backCategory =
@@ -660,8 +677,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 prefScreen.findPreference(CATEGORY_ASSIST);
         final PreferenceCategory appSwitchCategory =
                 prefScreen.findPreference(CATEGORY_APPSWITCH);
+        */
 
         /* Toggle hardkey control availability depending on navbar state */
+        /*
         if (mNavigationPreferencesCat != null) {
             if (force || navbarEnabled) {
                 if (DeviceUtils.isEdgeToEdgeEnabled(getContext())) {
@@ -730,6 +749,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
             }
         }
     }
+    */
 
     private static boolean hasNavigationBar() {
         boolean hasNavigationBar = false;
@@ -742,6 +762,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
         return hasNavigationBar;
     }
 
+    /*
     private static boolean isKeyDisablerSupported(Context context) {
         final LineageHardwareManager hardware = LineageHardwareManager.getInstance(context);
         return hardware.isSupported(LineageHardwareManager.FEATURE_KEY_DISABLE);
@@ -781,16 +802,20 @@ public class ButtonSettings extends SettingsPreferenceFragment
             int value;
 
             if (mSwapVolumeButtons.isChecked()) {
+                */
                 /* The native inputflinger service uses the same logic of:
                  *   1 - the volume rocker is on one the sides, relative to the natural
                  *       orientation of the display (true for all phones and most tablets)
                  *   2 - the volume rocker is on the top or bottom, relative to the
                  *       natural orientation of the display (true for some tablets)
                  */
+                /*
                 value = getResources().getInteger(
                         R.integer.config_volumeRockerVsDisplayOrientation);
             } else {
+                */
                 /* Disable the re-orient functionality */
+                /*
                 value = 0;
             }
             LineageSettings.System.putInt(getActivity().getContentResolver(),
@@ -838,6 +863,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
                         ? LineageSettings.Secure.RING_HOME_BUTTON_BEHAVIOR_ANSWER
                         : LineageSettings.Secure.RING_HOME_BUTTON_BEHAVIOR_DO_NOTHING));
     }
+    */
 
     public static final Searchable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
             new BaseSearchIndexProvider() {
@@ -846,6 +872,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
         public Set<String> getNonIndexableKeys(Context context) {
             final Set<String> result = new ArraySet<String>();
 
+            /*
             if (!TelephonyUtils.isVoiceCapable(context)) {
                 result.add(KEY_POWER_END_CALL);
                 result.add(KEY_HOME_ANSWER_CALL);
@@ -930,10 +957,12 @@ public class ButtonSettings extends SettingsPreferenceFragment
             if (!isKeySwapperSupported(context)) {
                 result.add(KEY_SWAP_CAPACITIVE_KEYS);
             }
+            */
 
             if (hasNavigationBar()) {
                 if (DeviceUtils.isEdgeToEdgeEnabled(context)) {
                     result.add(KEY_NAVIGATION_ARROW_KEYS);
+                    /*
                     result.add(KEY_NAVIGATION_HOME_LONG_PRESS);
                     result.add(KEY_NAVIGATION_HOME_DOUBLE_TAP);
                     result.add(KEY_NAVIGATION_APP_SWITCH_LONG_PRESS);
@@ -942,6 +971,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
                     result.add(KEY_EDGE_LONG_SWIPE);
                 } else {
                     result.add(KEY_EDGE_LONG_SWIPE);
+                    */
                 }
             }
             return result;

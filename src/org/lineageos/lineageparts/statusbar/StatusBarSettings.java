@@ -42,6 +42,7 @@ import java.util.Set;
 public class StatusBarSettings extends SettingsPreferenceFragment
         implements Preference.OnPreferenceChangeListener, Searchable {
 
+    /*
     private static final String CATEGORY_BATTERY = "status_bar_battery_key";
     private static final String CATEGORY_CLOCK = "status_bar_clock_key";
 
@@ -58,9 +59,11 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private static final int PULLDOWN_DIR_NONE = 0;
     private static final int PULLDOWN_DIR_RIGHT = 1;
     private static final int PULLDOWN_DIR_LEFT = 2;
+    */
 
     private static final String NETWORK_TRAFFIC_SETTINGS = "network_traffic_settings";
 
+    /*
     private LineageSystemSettingListPreference mQuickPulldown;
     private LineageSystemSettingListPreference mStatusBarClock;
     private LineageSystemSettingListPreference mStatusBarAmPm;
@@ -69,6 +72,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
     private PreferenceCategory mStatusBarBatteryCategory;
     private PreferenceCategory mStatusBarClockCategory;
+    */
     private PreferenceScreen mNetworkTrafficPref;
 
     private boolean mHasNotch;
@@ -85,6 +89,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             getPreferenceScreen().removePreference(mNetworkTrafficPref);
         }
 
+        /*
         mStatusBarAmPm = findPreference(STATUS_BAR_AM_PM);
         mStatusBarClock = findPreference(STATUS_BAR_CLOCK_STYLE);
         mStatusBarClock.setOnPreferenceChangeListener(this);
@@ -101,8 +106,10 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         mQuickPulldown = findPreference(STATUS_BAR_QUICK_QS_PULLDOWN);
         mQuickPulldown.setOnPreferenceChangeListener(this);
         updateQuickPulldownSummary(mQuickPulldown.getIntValue(0));
+        */
     }
 
+    /*
     @Override
     public void onResume() {
         super.onResume();
@@ -151,9 +158,11 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         // Disable network traffic preferences if clock is centered in the status bar
         updateNetworkTrafficStatus(getClockPosition());
     }
+    */
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        /*
         int value = Integer.parseInt((String) newValue);
         String key = preference.getKey();
         switch (key) {
@@ -167,9 +176,11 @@ public class StatusBarSettings extends SettingsPreferenceFragment
                 enableStatusBarBatteryDependents(value);
                 break;
         }
+        */
         return true;
     }
 
+    /*
     private void enableStatusBarBatteryDependents(int batteryIconStyle) {
         mStatusBarBatteryShowPercent.setEnabled(batteryIconStyle != STATUS_BAR_BATTERY_STYLE_TEXT);
     }
@@ -217,6 +228,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         return LineageSettings.System.getInt(getActivity().getContentResolver(),
                 STATUS_BAR_CLOCK_STYLE, 2);
     }
+    */
 
     public static final Searchable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
             new BaseSearchIndexProvider() {

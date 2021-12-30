@@ -63,6 +63,11 @@
           lineage:xmlRes="@xml/display_rotation" />
     -->
 
+    <part android:key="restrict_usb_setting"
+        android:title="@string/security_restrict_usb_title"
+        android:fragment="org.lineageos.lineageparts.security.RestrictUsbSetting"
+        lineage:xmlRes="@xml/restrict_usb_setting" />
+
     <part android:key="status_bar_settings"
           android:title="@string/status_bar_title"
           android:fragment="org.lineageos.lineageparts.statusbar.StatusBarSettings"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2020-2021 The Calyx Institute
+     Copyright (C) 2018-2019 The LineageOS Project
+     Copyright (C) 2021 The Calyx Institute
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,16 +15,13 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
-     <string-array name="security_restrict_usb_entries" translatable="false">
-        <item>@string/security_restrict_usb_always</item>
-        <item>@string/security_restrict_usb_keyguard</item>
-        <item>@string/security_restrict_usb_disabled</item>
-     </string-array>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-     <string-array name="security_restrict_usb_values" translatable="false">
-        <item>2</item>
-        <item>1</item>
-        <item>0</item>
-     </string-array>
-</resources>
+   <ListPreference
+       android:key="security_restrict_usb"
+       android:defaultValue="30"
+       android:entries="@array/security_restrict_usb_entries"
+       android:entryValues="@array/security_restrict_usb_values"
+       android:summary="@string/security_restrict_usb_summary"
+       android:title="@string/security_restrict_usb_title" />
+</PreferenceScreen>

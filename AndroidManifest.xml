@@ -156,6 +156,27 @@
                 android:resource="@string/summary_empty" />
         </activity-alias>
 
+        <!-- Restrict USB (Security category) -->
+        <activity-alias
+            android:name=".security.RestrictUsbSetting"
+            android:label="@string/security_restrict_usb_title"
+            android:targetActivity="PartsActivity">
+            <intent-filter>
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
+                <action android:name="org.lineageos.lineageparts.RESTRICT_USB" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.security" />
+            <meta-data
+                android:name="com.android.settings.order"
+                android:value="0" />
+            <meta-data
+                android:name="com.android.settings.summary"
+                android:resource="@string/summary_empty" />
+        </activity-alias>
+
         <!-- Trust interface (Privacy category) -->
         <!--
         <activity-alias

@@ -15,23 +15,10 @@
 -->
 
 <resources>
-    <declare-styleable name="IconPreferenceScreen">
-        <attr name="icon" />
-    </declare-styleable>
-
-    <attr name="switchBarTheme" format="reference" />
-    <attr name="switchBarMarginStart" format="dimension" />
-    <attr name="switchBarMarginEnd" format="dimension" />
-    <attr name="switchBarBackgroundColor" format="color" />
-    <attr name="switchBarBackgroundActivatedColor" format="color" />
-
-    <attr name="preferenceBackgroundColor" format="color" />
-
     <declare-styleable name="DividerPreference">
         <attr name="allowDividerAbove" format="boolean" />
         <attr name="allowDividerBelow" format="boolean" />
     </declare-styleable>
-
 
     <declare-styleable name="IntervalSeekBar">
         <attr name="minValue" format="float" />
@@ -39,5 +26,4 @@
         <attr name="defaultValue" />
         <attr name="digits" format="integer" />
     </declare-styleable>
-
 </resources>

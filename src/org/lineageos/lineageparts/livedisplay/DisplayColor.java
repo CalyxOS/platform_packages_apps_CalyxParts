@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013-2015 The CyanogenMod Project
+ *               2021-2022 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +17,6 @@
 
 package org.lineageos.lineageparts.livedisplay;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Parcel;
@@ -25,6 +25,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import org.lineageos.lineageparts.widget.CustomDialogPreference;
 import org.lineageos.lineageparts.widget.IntervalSeekBar;
@@ -69,15 +71,13 @@ public class DisplayColor extends CustomDialogPreference<AlertDialog> {
     }
 
     @Override
-    protected void onPrepareDialogBuilder(AlertDialog.Builder builder, DialogInterface.OnClickListener listener) {
+    protected void onPrepareDialogBuilder(AlertDialog.Builder builder,
+            DialogInterface.OnClickListener listener) {
         super.onPrepareDialogBuilder(builder, listener);
 
-        builder.setNeutralButton(R.string.reset,
-                new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
+        builder.setNeutralButton(R.string.reset, null);
+        builder.setNegativeButton(R.string.cancel, null);
+        builder.setPositiveButton(R.string.dlg_ok, null);
     }
 
     @Override

@@ -101,15 +101,18 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private static final String KEY_POWER_END_CALL = "power_end_call";
     private static final String KEY_HOME_ANSWER_CALL = "home_answer_call";
     private static final String KEY_VOLUME_MUSIC_CONTROLS = "volbtn_music_controls";
+    */
     private static final String KEY_TORCH_LONG_PRESS_POWER_GESTURE =
             "torch_long_press_power_gesture";
     private static final String KEY_TORCH_LONG_PRESS_POWER_TIMEOUT =
             "torch_long_press_power_timeout";
+    /*
     private static final String KEY_CLICK_PARTIAL_SCREENSHOT =
             "click_partial_screenshot";
     private static final String KEY_SWAP_CAPACITIVE_KEYS = "swap_capacitive_keys";
-
+    */
     private static final String CATEGORY_POWER = "power_key";
+    /*
     private static final String CATEGORY_HOME = "home_key";
     private static final String CATEGORY_BACK = "back_key";
     private static final String CATEGORY_MENU = "menu_key";
@@ -146,8 +149,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private ListPreference mEdgeLongSwipeAction;
     private SwitchPreference mPowerEndCall;
     private SwitchPreference mHomeAnswerCall;
+    */
     private SwitchPreference mTorchLongPressPowerGesture;
     private ListPreference mTorchLongPressPowerTimeout;
+    /*
     private SwitchPreference mSwapCapacitiveKeys;
 
     private PreferenceCategory mNavigationPreferencesCat;
@@ -169,10 +174,12 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
         /*
         final Resources res = getResources();
+        */
         final ContentResolver resolver = getActivity().getContentResolver();
         final PreferenceScreen prefScreen = getPreferenceScreen();
 
         final boolean hasPowerKey = DeviceUtils.hasPowerKey();
+        /*
         final boolean hasHomeKey = DeviceUtils.hasHomeKey(getActivity());
         final boolean hasBackKey = DeviceUtils.hasBackKey(getActivity());
         final boolean hasMenuKey = DeviceUtils.hasMenuKey(getActivity());
@@ -190,7 +197,9 @@ public class ButtonSettings extends SettingsPreferenceFragment
         final boolean showVolumeWake = DeviceUtils.canWakeUsingVolumeKeys(getActivity());
 
         boolean hasAnyBindableKey = false;
+        */
         final PreferenceCategory powerCategory = prefScreen.findPreference(CATEGORY_POWER);
+        /*
         final PreferenceCategory homeCategory = prefScreen.findPreference(CATEGORY_HOME);
         final PreferenceCategory backCategory = prefScreen.findPreference(CATEGORY_BACK);
         final PreferenceCategory menuCategory = prefScreen.findPreference(CATEGORY_MENU);
@@ -202,6 +211,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
         // Power button ends calls.
         mPowerEndCall = findPreference(KEY_POWER_END_CALL);
+        */
 
         // Long press power while display is off to activate torchlight
         mTorchLongPressPowerGesture = findPreference(KEY_TORCH_LONG_PRESS_POWER_GESTURE);
@@ -210,6 +220,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
         mTorchLongPressPowerTimeout = initList(KEY_TORCH_LONG_PRESS_POWER_TIMEOUT,
                 torchLongPressPowerTimeout);
 
+        /*
         // Home button answers calls.
         mHomeAnswerCall = findPreference(KEY_HOME_ANSWER_CALL);
 
@@ -278,12 +289,13 @@ public class ButtonSettings extends SettingsPreferenceFragment
         */
         //updateDisableNavkeysCategories(mDisableNavigationKeys.isChecked(), /* force */ true);
 
-        /*
         if (hasPowerKey) {
+            /*
             if (!TelephonyUtils.isVoiceCapable(getActivity())) {
                 powerCategory.removePreference(mPowerEndCall);
                 mPowerEndCall = null;
             }
+            */
             if (!DeviceUtils.deviceSupportsFlashLight(getActivity())) {
                 powerCategory.removePreference(mTorchLongPressPowerGesture);
                 powerCategory.removePreference(mTorchLongPressPowerTimeout);
@@ -293,6 +305,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
             prefScreen.removePreference(powerCategory);
         }
 
+        /*
         if (hasHomeKey) {
             if (!showHomeWake) {
                 homeCategory.removePreference(findPreference(KEY_HOME_WAKE_SCREEN));
@@ -556,6 +569,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
             mHomeAnswerCall.setChecked(homeButtonAnswersCall);
         }
     }
+    */
 
     private ListPreference initList(String key, Action value) {
         return initList(key, value.ordinal());
@@ -577,6 +591,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
         LineageSettings.System.putInt(getContentResolver(), setting, Integer.valueOf(value));
     }
 
+    /*
     private void handleSystemListChange(ListPreference pref, Object newValue, String setting) {
         String value = (String) newValue;
         int index = pref.findIndexOfValue(value);
@@ -632,10 +647,13 @@ public class ButtonSettings extends SettingsPreferenceFragment
             handleSystemListChange(mVolumeKeyCursorControl, newValue,
                     "volume_key_cursor_control");
             return true;
-        } else if (preference == mTorchLongPressPowerTimeout) {
+        } else
+        */
+        if (preference == mTorchLongPressPowerTimeout) {
             handleListChange(mTorchLongPressPowerTimeout, newValue,
                     LineageSettings.System.TORCH_LONG_PRESS_POWER_TIMEOUT);
             return true;
+        /*
         } else if (preference == mEdgeLongSwipeAction) {
             handleListChange(mEdgeLongSwipeAction, newValue,
                     LineageSettings.System.KEY_EDGE_LONG_SWIPE_ACTION);
@@ -643,8 +661,8 @@ public class ButtonSettings extends SettingsPreferenceFragment
         } else if (preference == mSwapCapacitiveKeys) {
             mHardware.set(LineageHardwareManager.FEATURE_KEY_SWAP, (Boolean) newValue);
             return true;
-        }
         */
+        }
         return false;
     }
 
@@ -944,12 +962,14 @@ public class ButtonSettings extends SettingsPreferenceFragment
             } else if (!DeviceUtils.canWakeUsingVolumeKeys(context)) {
                 result.add(KEY_VOLUME_WAKE_SCREEN);
             }
+            */
 
             if (!DeviceUtils.deviceSupportsFlashLight(context)) {
                 result.add(KEY_TORCH_LONG_PRESS_POWER_GESTURE);
                 result.add(KEY_TORCH_LONG_PRESS_POWER_TIMEOUT);
             }
 
+            /*
             if (!isKeyDisablerSupported(context)) {
                 result.add(KEY_DISABLE_NAV_KEYS);
             }

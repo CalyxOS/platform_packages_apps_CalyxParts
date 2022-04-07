@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014-2015 The CyanogenMod Project
- *               2017-2021 The LineageOS Project
+ *               2017-2022 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,21 +17,26 @@
 
 package org.lineageos.lineageparts.input;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.UserInfo;
 import android.os.Bundle;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.provider.Settings;
+import android.service.controls.ControlsProviderService;
 
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 
 import com.android.internal.widget.LockPatternUtils;
+import com.android.settingslib.applications.ServiceListing;
 
 import org.lineageos.internal.util.PowerMenuConstants;
 import org.lineageos.lineageparts.R;
 import org.lineageos.lineageparts.SettingsPreferenceFragment;
+import org.lineageos.lineageparts.utils.TelephonyUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +49,16 @@ import static org.lineageos.internal.util.PowerMenuConstants.*;
 public class PowerMenuActions extends SettingsPreferenceFragment {
     final static String TAG = "PowerMenuActions";
 
+    private static final String CATEGORY_POWER_MENU_ITEMS = "power_menu_items";
+
+    private PreferenceCategory mPowerMenuItemsCategory;
+
     private CheckBoxPreference mScreenshotPref;
     private CheckBoxPreference mAirplanePref;
     private CheckBoxPreference mUsersPref;
     private CheckBoxPreference mBugReportPref;
     private CheckBoxPreference mEmergencyPref;
+    private CheckBoxPreference mDeviceControlsPref;
 
     private LineageGlobalActions mLineageGlobalActions;
 
@@ -68,6 +78,8 @@ public class PowerMenuActions extends SettingsPreferenceFragment {
         mUserManager = UserManager.get(mContext);
         mLineageGlobalActions = LineageGlobalActions.getInstance(mContext);
 
+        mPowerMenuItemsCategory = findPreference(CATEGORY_POWER_MENU_ITEMS);
+
         for (String action : PowerMenuConstants.getAllActions()) {
             if (action.equals(GLOBAL_ACTION_KEY_SCREENSHOT)) {
                 mScreenshotPref = findPreference(GLOBAL_ACTION_KEY_SCREENSHOT);
@@ -79,7 +91,14 @@ public class PowerMenuActions extends SettingsPreferenceFragment {
                 mBugReportPref = findPreference(GLOBAL_ACTION_KEY_BUGREPORT);
             } else if (action.equals(GLOBAL_ACTION_KEY_EMERGENCY)) {
                 mEmergencyPref = findPreference(GLOBAL_ACTION_KEY_EMERGENCY);
+            } else if (action.equals(GLOBAL_ACTION_KEY_DEVICECONTROLS)) {
+                mDeviceControlsPref = findPreference(GLOBAL_ACTION_KEY_DEVICECONTROLS);
             }
+        }
+
+        if (!TelephonyUtils.isVoiceCapable(getActivity())) {
+            mPowerMenuItemsCategory.removePreference(mEmergencyPref);
+            mEmergencyPref = null;
         }
 
         mLocalUserConfig = mLineageGlobalActions.getLocalUserConfig();
@@ -101,7 +120,7 @@ public class PowerMenuActions extends SettingsPreferenceFragment {
 
         if (mUsersPref != null) {
             if (!UserHandle.MU_ENABLED || !UserManager.supportsMultipleUsers()) {
-                getPreferenceScreen().removePreference(findPreference(GLOBAL_ACTION_KEY_USERS));
+                mPowerMenuItemsCategory.removePreference(mUsersPref);
                 mUsersPref = null;
             } else {
                 List<UserInfo> users = mUserManager.getUsers();
@@ -120,6 +139,23 @@ public class PowerMenuActions extends SettingsPreferenceFragment {
         if (mEmergencyPref != null) {
             mEmergencyPref.setChecked(mLineageGlobalActions.userConfigContains(
                     GLOBAL_ACTION_KEY_EMERGENCY));
+        }
+
+        if (mDeviceControlsPref != null) {
+            mDeviceControlsPref.setChecked(mLineageGlobalActions.userConfigContains(
+                    GLOBAL_ACTION_KEY_DEVICECONTROLS));
+
+            // Enable preference if any device control app is installed
+            ServiceListing serviceListing = new ServiceListing.Builder(mContext)
+                    .setIntentAction(ControlsProviderService.SERVICE_CONTROLS)
+                    .setPermission(Manifest.permission.BIND_CONTROLS)
+                    .setNoun("Controls Provider")
+                    .setSetting("controls_providers")
+                    .setTag("controls_providers")
+                    .build();
+            serviceListing.addCallback(
+                    services -> mDeviceControlsPref.setEnabled(!services.isEmpty()));
+            serviceListing.reload();
         }
 
         updatePreferences();
@@ -156,6 +192,10 @@ public class PowerMenuActions extends SettingsPreferenceFragment {
         } else if (preference == mEmergencyPref) {
             value = mEmergencyPref.isChecked();
             mLineageGlobalActions.updateUserConfig(value, GLOBAL_ACTION_KEY_EMERGENCY);
+
+        } else if (preference == mDeviceControlsPref) {
+            value = mDeviceControlsPref.isChecked();
+            mLineageGlobalActions.updateUserConfig(value, GLOBAL_ACTION_KEY_DEVICECONTROLS);
 
         } else {
             return super.onPreferenceTreeClick(preference);

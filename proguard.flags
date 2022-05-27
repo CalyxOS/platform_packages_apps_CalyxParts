@@ -12,6 +12,11 @@
 -keep class org.lineageos.lineageparts.privacyguard.*
 -keep class org.lineageos.lineageparts.sounds.*
 
+# Keep keyhandler constructor
+-keep public class * implements com.android.internal.os.DeviceKeyHandler {
+   public <init>(android.content.Context);
+}
+
 # Keep click responders
 -keepclassmembers class com.android.settings.inputmethod.UserDictionaryAddWordActivity {
   *** onClick*(...);

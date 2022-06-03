@@ -106,9 +106,9 @@ public class ButtonSettings extends SettingsPreferenceFragment
             "torch_long_press_power_gesture";
     private static final String KEY_TORCH_LONG_PRESS_POWER_TIMEOUT =
             "torch_long_press_power_timeout";
-    /*
     private static final String KEY_CLICK_PARTIAL_SCREENSHOT =
             "click_partial_screenshot";
+    /*
     private static final String KEY_SWAP_CAPACITIVE_KEYS = "swap_capacitive_keys";
     */
     private static final String CATEGORY_POWER = "power_key";
@@ -121,8 +121,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private static final String CATEGORY_CAMERA = "camera_key";
     private static final String CATEGORY_VOLUME = "volume_keys";
     private static final String CATEGORY_NAVBAR = "navigation_bar_category";
+    */
     private static final String CATEGORY_EXTRAS = "extras_category";
 
+    /*
     private ListPreference mBackLongPressAction;
     private ListPreference mHomeLongPressAction;
     private ListPreference mHomeDoubleTapAction;
@@ -186,8 +188,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
         final boolean hasAssistKey = DeviceUtils.hasAssistKey(getActivity());
         final boolean hasAppSwitchKey = DeviceUtils.hasAppSwitchKey(getActivity());
         final boolean hasCameraKey = DeviceUtils.hasCameraKey(getActivity());
+        */
         final boolean hasVolumeKeys = DeviceUtils.hasVolumeKeys(getActivity());
 
+        /*
         final boolean showHomeWake = DeviceUtils.canWakeUsingHomeKey(getActivity());
         final boolean showBackWake = DeviceUtils.canWakeUsingBackKey(getActivity());
         final boolean showMenuWake = DeviceUtils.canWakeUsingMenuKey(getActivity());
@@ -207,8 +211,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
         final PreferenceCategory appSwitchCategory = prefScreen.findPreference(CATEGORY_APPSWITCH);
         final PreferenceCategory volumeCategory = prefScreen.findPreference(CATEGORY_VOLUME);
         final PreferenceCategory cameraCategory = prefScreen.findPreference(CATEGORY_CAMERA);
+        */
         final PreferenceCategory extrasCategory = prefScreen.findPreference(CATEGORY_EXTRAS);
 
+        /*
         // Power button ends calls.
         mPowerEndCall = findPreference(KEY_POWER_END_CALL);
         */
@@ -417,8 +423,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
         if (!hasCameraKey || cameraCategory.getPreferenceCount() == 0) {
             prefScreen.removePreference(cameraCategory);
         }
+        */
 
         if (hasVolumeKeys) {
+            /*
             if (!showVolumeWake) {
                 volumeCategory.removePreference(findPreference(KEY_VOLUME_WAKE_SCREEN));
             }
@@ -446,9 +454,11 @@ public class ButtonSettings extends SettingsPreferenceFragment
             if (mVolumePanelOnLeft != null) {
                 mVolumePanelOnLeft.setChecked(volumePanelOnLeft);
             }
+            */
         } else {
             extrasCategory.removePreference(findPreference(KEY_CLICK_PARTIAL_SCREENSHOT));
         }
+        /*
         if (!hasVolumeKeys || volumeCategory.getPreferenceCount() == 0) {
             prefScreen.removePreference(volumeCategory);
         }
@@ -949,8 +959,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
             } else if (!DeviceUtils.canWakeUsingCameraKey(context)) {
                 result.add(KEY_CAMERA_WAKE_SCREEN);
             }
+            */
 
             if (!DeviceUtils.hasVolumeKeys(context)) {
+                /*
                 result.add(CATEGORY_VOLUME);
                 result.add(KEY_SWAP_VOLUME_BUTTONS);
                 result.add(KEY_VOLUME_ANSWER_CALL);
@@ -958,11 +970,13 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 result.add(KEY_VOLUME_MUSIC_CONTROLS);
                 result.add(KEY_VOLUME_PANEL_ON_LEFT);
                 result.add(KEY_VOLUME_WAKE_SCREEN);
+                */
                 result.add(KEY_CLICK_PARTIAL_SCREENSHOT);
+            /*
             } else if (!DeviceUtils.canWakeUsingVolumeKeys(context)) {
                 result.add(KEY_VOLUME_WAKE_SCREEN);
-            }
             */
+            }
 
             if (!DeviceUtils.deviceSupportsFlashLight(context)) {
                 result.add(KEY_TORCH_LONG_PRESS_POWER_GESTURE);

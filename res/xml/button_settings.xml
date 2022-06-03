@@ -326,6 +326,7 @@
             android:title="@string/volume_panel_on_left_title"
             android:summary="@string/volume_panel_on_left_summary" />
     </PreferenceCategory>
+    -->
 
     <PreferenceCategory
         android:key="extras_category"
@@ -339,13 +340,14 @@
                 android:action="org.lineageos.settings.device.ADDITIONAL_BUTTONS_SETTINGS" />
         </lineageos.preference.RemotePreference>
 
+        <!--
         <lineageos.preference.LineageSystemSettingSwitchPreference
             android:key="click_partial_screenshot"
             android:title="@string/click_partial_screenshot_title"
             android:summary="@string/click_partial_screenshot_summary"
             android:defaultValue="false" />
+        -->
 
     </PreferenceCategory>
-    -->
 
 </PreferenceScreen>

@@ -32,11 +32,9 @@ public class BootReceiver extends BroadcastReceiver {
 
         if (!hasRestoredTunable(ctx)) {
             /* Restore the hardware tunable values */
-            ButtonSettings.restoreKeyDisabler(ctx);
             setRestoredTunable(ctx);
         }
 
-        ButtonSettings.restoreKeySwapper(ctx);
         TouchscreenGestureSettings.restoreTouchscreenGestureStates(ctx);
     }
 

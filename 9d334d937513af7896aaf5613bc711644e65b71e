@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0cc6129_84e64c58",
+        "filename": "src/org/lineageos/lineageparts/statusbar/StatusBarSettings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-07-14T19:45:10Z",
+      "side": 0,
+      "message": "These removals will definitely make future merging / cherry-picking harder, but we\u0027ll just deal with it then.\n\nEither way (comment out or delete), (merge or cherry pick) will need manual work, at least this is less confusing once it\u0027s all done.",
+      "revId": "9d334d937513af7896aaf5613bc711644e65b71e",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}

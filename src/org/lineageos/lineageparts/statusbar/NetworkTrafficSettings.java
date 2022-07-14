@@ -23,7 +23,6 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
         implements Preference.OnPreferenceChangeListener  {
 
     private static final String TAG = "NetworkTrafficSettings";
-    private static final String STATUS_BAR_CLOCK_STYLE = "status_bar_clock";
 
     private static final int POSITION_START = 0;
     private static final int POSITION_CENTER = 1;
@@ -60,7 +59,7 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
         mNetTrafficMode.setValue(String.valueOf(mode));
 
         final boolean hasCenteredCutout = DeviceUtils.hasCenteredCutout(getActivity());
-        final boolean disallowCenteredTraffic = hasCenteredCutout || getClockPosition() == 1;
+        final boolean disallowCenteredTraffic = hasCenteredCutout;
 
         mNetTrafficPosition = findPreference(LineageSettings.Secure.NETWORK_TRAFFIC_POSITION);
         mNetTrafficPosition.setOnPreferenceChangeListener(this);
@@ -173,10 +172,5 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
         mNetTrafficAutohide.setEnabled(enabled);
         mNetTrafficUnits.setEnabled(enabled);
         mNetTrafficShowUnits.setEnabled(enabled);
-    }
-
-    private int getClockPosition() {
-        return LineageSettings.System.getInt(getActivity().getContentResolver(),
-                STATUS_BAR_CLOCK_STYLE, 2);
     }
 }

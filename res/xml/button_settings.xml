@@ -128,13 +128,6 @@
             android:key="swap_volume_buttons"
             android:title="@string/swap_volume_buttons_title"
             android:summary="@string/swap_volume_buttons_summary" />
-
-        <lineageos.preference.LineageSecureSettingListPreference
-            android:key="volume_panel_on_left"
-            android:title="@string/volume_panel_position_title"
-            android:entries="@array/volume_panel_position_entries"
-            android:entryValues="@array/volume_panel_position_values"
-            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
     <PreferenceCategory

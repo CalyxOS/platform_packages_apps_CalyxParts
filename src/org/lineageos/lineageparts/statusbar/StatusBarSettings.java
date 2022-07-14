@@ -87,9 +87,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         mNetworkTrafficPref = findPreference(NETWORK_TRAFFIC_SETTINGS);
 
         mHasCenteredCutout = DeviceUtils.hasCenteredCutout(getActivity());
-        if (mHasCenteredCutout) {
-            getPreferenceScreen().removePreference(mNetworkTrafficPref);
-        }
 
         /*
         mStatusBarAmPm = findPreference(STATUS_BAR_AM_PM);
@@ -239,18 +236,4 @@ public class StatusBarSettings extends SettingsPreferenceFragment
                 STATUS_BAR_CLOCK_STYLE, 2);
     }
     */
-
-    public static final Searchable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
-            new BaseSearchIndexProvider() {
-
-        @Override
-        public Set<String> getNonIndexableKeys(Context context) {
-            final Set<String> result = new ArraySet<String>();
-
-            if (DeviceUtils.hasCenteredCutout(context)) {
-                result.add(NETWORK_TRAFFIC_SETTINGS);
-            }
-            return result;
-        }
-    };
 }

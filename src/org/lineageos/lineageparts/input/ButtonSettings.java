@@ -85,7 +85,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private static final String KEY_NAVIGATION_HOME_DOUBLE_TAP = "navigation_home_double_tap";
     private static final String KEY_NAVIGATION_APP_SWITCH_LONG_PRESS =
             "navigation_app_switch_long_press";
-    private static final String KEY_EDGE_LONG_SWIPE = "navigation_bar_edge_long_swipe";
     private static final String KEY_POWER_END_CALL = "power_end_call";
     private static final String KEY_VOLUME_MUSIC_CONTROLS = "volbtn_music_controls";
     */
@@ -116,7 +115,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private ListPreference mNavigationHomeLongPressAction;
     private ListPreference mNavigationHomeDoubleTapAction;
     private ListPreference mNavigationAppSwitchLongPressAction;
-    private ListPreference mEdgeLongSwipeAction;
     private SwitchPreference mPowerEndCall;
     */
     private SwitchPreference mTorchLongPressPowerGesture;
@@ -188,9 +186,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
         Action appSwitchLongPressAction = Action.fromSettings(resolver,
                 LineageSettings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION,
                 defaultAppSwitchLongPressAction);
-        Action edgeLongSwipeAction = Action.fromSettings(resolver,
-                LineageSettings.System.KEY_EDGE_LONG_SWIPE_ACTION,
-                Action.NOTHING);
 
         // Navigation bar arrow keys while typing
         mNavigationArrowKeys = findPreference(KEY_NAVIGATION_ARROW_KEYS);
@@ -210,9 +205,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
         // Navigation bar app switch long press
         mNavigationAppSwitchLongPressAction = initList(KEY_NAVIGATION_APP_SWITCH_LONG_PRESS,
                 appSwitchLongPressAction);
-
-        // Edge long swipe gesture
-        mEdgeLongSwipeAction = initList(KEY_EDGE_LONG_SWIPE, edgeLongSwipeAction);
         */
 
         if (hasPowerKey) {
@@ -295,9 +287,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
             mNavigationAppSwitchLongPressAction.setEntries(actionEntriesGo);
             mNavigationAppSwitchLongPressAction.setEntryValues(actionValuesGo);
-
-            mEdgeLongSwipeAction.setEntries(actionEntriesGo);
-            mEdgeLongSwipeAction.setEntryValues(actionValuesGo);
         }
         */
     }
@@ -362,10 +351,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
                     LineageSettings.System.TORCH_LONG_PRESS_POWER_TIMEOUT);
             return true;
         /*
-        } else if (preference == mEdgeLongSwipeAction) {
-            handleListChange(mEdgeLongSwipeAction, newValue,
-                    LineageSettings.System.KEY_EDGE_LONG_SWIPE_ACTION);
-            return true;
         } else if (preference == mEnableTaskbar) {
             toggleTaskBarDependencies((Boolean) newValue);
             if ((Boolean) newValue && is2ButtonNavigationEnabled(getContext())) {
@@ -496,9 +481,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
                     result.add(KEY_NAVIGATION_APP_SWITCH_LONG_PRESS);
                 } else if (DeviceUtils.isSwipeUpEnabled(context)) {
                     result.add(KEY_NAVIGATION_APP_SWITCH_LONG_PRESS);
-                    result.add(KEY_EDGE_LONG_SWIPE);
-                } else {
-                    result.add(KEY_EDGE_LONG_SWIPE);
                     */
                 }
             }

@@ -58,7 +58,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
     private static final String KEY_VOLUME_KEY_CURSOR_CONTROL = "volume_key_cursor_control";
     private static final String KEY_SWAP_VOLUME_BUTTONS = "swap_volume_buttons";
-    private static final String KEY_VOLUME_PANEL_POSITION = "volume_panel_on_left";
     private static final String KEY_VOLUME_WAKE_SCREEN = "volume_wake_screen";
     private static final String KEY_VOLUME_ANSWER_CALL = "volume_answer_call";
     private static final String KEY_NAVIGATION_BACK_LONG_PRESS = "navigation_back_long_press";
@@ -412,7 +411,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 result.add(KEY_VOLUME_ANSWER_CALL);
                 result.add(KEY_VOLUME_KEY_CURSOR_CONTROL);
                 result.add(KEY_VOLUME_MUSIC_CONTROLS);
-                result.add(KEY_VOLUME_PANEL_POSITION);
                 result.add(KEY_VOLUME_WAKE_SCREEN);
                 result.add(KEY_CLICK_PARTIAL_SCREENSHOT);
             } else if (!DeviceUtils.canWakeUsingVolumeKeys(context)) {

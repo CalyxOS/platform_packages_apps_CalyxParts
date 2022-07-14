@@ -6,33 +6,19 @@
 package org.lineageos.lineageparts.statusbar;
 
 import android.os.Bundle;
-import android.provider.Settings;
-import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.view.View;
 
 import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
 
 import org.lineageos.lineageparts.R;
 import org.lineageos.lineageparts.SettingsPreferenceFragment;
-import org.lineageos.lineageparts.utils.DeviceUtils;
 
 import lineageos.preference.LineageSystemSettingListPreference;
-import lineageos.providers.LineageSettings;
 
 public class StatusBarSettings extends SettingsPreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
-    private static final String CATEGORY_BATTERY = "status_bar_battery_key";
-
-    private static final String ICON_BLACKLIST = "icon_blacklist";
-
-    private static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
-    private static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
     private static final String STATUS_BAR_QUICK_QS_PULLDOWN = "qs_quick_pulldown";
-
-    private static final int STATUS_BAR_BATTERY_STYLE_TEXT = 2;
 
     private static final int PULLDOWN_DIR_NONE = 0;
     private static final int PULLDOWN_DIR_RIGHT = 1;
@@ -40,20 +26,10 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
     private LineageSystemSettingListPreference mQuickPulldown;
 
-    private PreferenceCategory mStatusBarBatteryCategory;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.status_bar_settings);
-
-        mStatusBarBatteryShowPercent = findPreference(STATUS_BAR_SHOW_BATTERY_PERCENT);
-        LineageSystemSettingListPreference statusBarBattery =
-                findPreference(STATUS_BAR_BATTERY_STYLE);
-        statusBarBattery.setOnPreferenceChangeListener(this);
-        enableStatusBarBatteryDependents(statusBarBattery.getIntValue(2));
-
-        mStatusBarBatteryCategory = getPreferenceScreen().findPreference(CATEGORY_BATTERY);
 
         mQuickPulldown = findPreference(STATUS_BAR_QUICK_QS_PULLDOWN);
         mQuickPulldown.setOnPreferenceChangeListener(this);
@@ -63,15 +39,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     @Override
     public void onResume() {
         super.onResume();
-
-        final String curIconBlacklist = Settings.Secure.getString(getContext().getContentResolver(),
-                ICON_BLACKLIST);
-
-        if (TextUtils.delimitedStringContains(curIconBlacklist, ',', "battery")) {
-            getPreferenceScreen().removePreference(mStatusBarBatteryCategory);
-        } else {
-            getPreferenceScreen().addPreference(mStatusBarBatteryCategory);
-        }
 
         // Adjust status bar preferences for RTL
         if (getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
@@ -89,15 +56,8 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             case STATUS_BAR_QUICK_QS_PULLDOWN:
                 updateQuickPulldownSummary(value);
                 break;
-            case STATUS_BAR_BATTERY_STYLE:
-                enableStatusBarBatteryDependents(value);
-                break;
         }
         return true;
-    }
-
-    private void enableStatusBarBatteryDependents(int batteryIconStyle) {
-        mStatusBarBatteryShowPercent.setEnabled(batteryIconStyle != STATUS_BAR_BATTERY_STYLE_TEXT);
     }
 
     private void updateQuickPulldownSummary(int value) {

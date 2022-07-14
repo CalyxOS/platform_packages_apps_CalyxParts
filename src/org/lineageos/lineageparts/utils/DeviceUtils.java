@@ -5,8 +5,6 @@
  */
 package org.lineageos.lineageparts.utils;
 
-import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL;
-
 import static org.lineageos.internal.util.DeviceKeysConstants.*;
 
 import android.app.Activity;
@@ -249,10 +247,5 @@ public class DeviceUtils {
         TelephonyManager telephonyManager = context.getSystemService(TelephonyManager.class);
         int subId = SubscriptionManager.getDefaultDataSubscriptionId();
         return telephonyManager.createForSubscriptionId(subId).isDataEnabled();
-    }
-
-    public static boolean isEdgeToEdgeEnabled(Context context) {
-        return NAV_BAR_MODE_GESTURAL == context.getResources().getInteger(
-                com.android.internal.R.integer.config_navBarInteractionMode);
     }
 }

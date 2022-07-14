@@ -64,7 +64,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private static final String KEY_NAVIGATION_HOME_DOUBLE_TAP = "navigation_home_double_tap";
     private static final String KEY_NAVIGATION_APP_SWITCH_LONG_PRESS =
             "navigation_app_switch_long_press";
-    private static final String KEY_EDGE_LONG_SWIPE = "navigation_bar_edge_long_swipe";
     private static final String KEY_POWER_END_CALL = "power_end_call";
     private static final String KEY_VOLUME_MUSIC_CONTROLS = "volbtn_music_controls";
     private static final String KEY_TORCH_LONG_PRESS_POWER_GESTURE =
@@ -85,7 +84,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private ListPreference mNavigationHomeLongPressAction;
     private ListPreference mNavigationHomeDoubleTapAction;
     private ListPreference mNavigationAppSwitchLongPressAction;
-    private ListPreference mEdgeLongSwipeAction;
     private SwitchPreferenceCompat mPowerEndCall;
     private ListPreference mTorchLongPressPowerTimeout;
     private SwitchPreferenceCompat mEnableTaskbar;
@@ -144,9 +142,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
         Action appSwitchLongPressAction = Action.fromSettings(resolver,
                 LineageSettings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION,
                 defaultAppSwitchLongPressAction);
-        Action edgeLongSwipeAction = Action.fromSettings(resolver,
-                LineageSettings.System.KEY_EDGE_LONG_SWIPE_ACTION,
-                Action.NOTHING);
 
         // Navigation bar back long press
         mNavigationBackLongPressAction = initList(KEY_NAVIGATION_BACK_LONG_PRESS,
@@ -163,9 +158,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
         // Navigation bar app switch long press
         mNavigationAppSwitchLongPressAction = initList(KEY_NAVIGATION_APP_SWITCH_LONG_PRESS,
                 appSwitchLongPressAction);
-
-        // Edge long swipe gesture
-        mEdgeLongSwipeAction = initList(KEY_EDGE_LONG_SWIPE, edgeLongSwipeAction);
 
         if (hasPowerKey) {
             if (!TelephonyUtils.isVoiceCapable(requireActivity())) {
@@ -253,9 +245,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
         mNavigationAppSwitchLongPressAction.setEntries(actionEntries);
         mNavigationAppSwitchLongPressAction.setEntryValues(actionValues);
-
-        mEdgeLongSwipeAction.setEntries(actionEntries);
-        mEdgeLongSwipeAction.setEntryValues(actionValues);
     }
 
     @Override
@@ -309,10 +298,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
         } else if (preference == mTorchLongPressPowerTimeout) {
             handleListChange(mTorchLongPressPowerTimeout, newValue,
                     LineageSettings.System.TORCH_LONG_PRESS_POWER_TIMEOUT);
-            return true;
-        } else if (preference == mEdgeLongSwipeAction) {
-            handleListChange(mEdgeLongSwipeAction, newValue,
-                    LineageSettings.System.KEY_EDGE_LONG_SWIPE_ACTION);
             return true;
         } else if (preference == mEnableTaskbar) {
             LineageSettings.System.putInt(getContentResolver(),
@@ -403,8 +388,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
                     result.add(KEY_NAVIGATION_HOME_LONG_PRESS);
                     result.add(KEY_NAVIGATION_HOME_DOUBLE_TAP);
                     result.add(KEY_NAVIGATION_APP_SWITCH_LONG_PRESS);
-                } else {
-                    result.add(KEY_EDGE_LONG_SWIPE);
                 }
             }
             return result;

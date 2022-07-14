@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014-2015 The CyanogenMod Project
- *               2017-2021 The LineageOS Project
+ *               2017-2022 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,7 +77,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     */
     private Preference mNetworkTrafficPref;
 
-    private boolean mHasNotch;
+    private boolean mHasCenteredCutout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,8 +86,8 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
         mNetworkTrafficPref = findPreference(NETWORK_TRAFFIC_SETTINGS);
 
-        mHasNotch = DeviceUtils.hasNotch(getActivity());
-        if (mHasNotch) {
+        mHasCenteredCutout = DeviceUtils.hasCenteredCutout(getActivity());
+        if (mHasCenteredCutout) {
             getPreferenceScreen().removePreference(mNetworkTrafficPref);
         }
 
@@ -136,7 +136,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             mStatusBarAmPm.setSummary(R.string.status_bar_am_pm_info);
         }
 
-        final boolean disallowCenteredClock = mHasNotch || getNetworkTrafficStatus() != 0;
+        final boolean disallowCenteredClock = mHasCenteredCutout || getNetworkTrafficStatus() != 0;
         */
 
         // Adjust status bar preferences for RTL
@@ -216,7 +216,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
     /*
     private void updateNetworkTrafficStatus(int clockPosition) {
-        if (mHasNotch) {
+        if (mHasCenteredCutout) {
             // Unconditional no network traffic for you
             return;
         }
@@ -247,7 +247,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         public Set<String> getNonIndexableKeys(Context context) {
             final Set<String> result = new ArraySet<String>();
 
-            if (DeviceUtils.hasNotch(context)) {
+            if (DeviceUtils.hasCenteredCutout(context)) {
                 result.add(NETWORK_TRAFFIC_SETTINGS);
             }
             return result;

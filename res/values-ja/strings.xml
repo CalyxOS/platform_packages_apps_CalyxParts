@@ -210,6 +210,7 @@
     <string name="navigation_bar_app_switch_long_press_title">履歴ボタンの長押しの動作</string>
     <string name="navigation_bar_edge_long_swipe_title">端の長いスワイプの動作</string>
     <string name="power_menu_title">電源メニュー</string>
+    <string name="power_menu_items_title">電源メニューの項目</string>
     <string name="power_menu_screenshot_title">スクリーンショット</string>
     <string name="power_menu_screenshot_summary">長押しして指定した範囲を撮影します</string>
     <string name="power_menu_airplane_title">機内モード</string>
@@ -218,6 +219,9 @@
     <string name="power_menu_bug_report_devoptions_unavailable">開発者向けオプションが有効でないためバグレポートは無効です</string>
     <string name="power_menu_bug_report_unavailable_for_user">プライマリユーザー以外はバグレポートは無効です</string>
     <string name="power_menu_emergency_title">緊急通報</string>
+    <string name="power_menu_devicecontrols_title">デバイスコントロール</string>
+    <string name="power_menu_advanced_restart_title">高度な再起動</string>
+    <string name="power_menu_advanced_restart_summary">ロック解除時に、リカバリーやブートローダーへ再起動するオプションを電源メニューに含めます</string>
     <string name="camera_double_tap_power_gesture_title">ホームボタンを2回押してカメラを起動</string>
     <string name="camera_double_tap_power_gesture_desc">画面のロックを解除せずにカメラをすばやく起動する</string>
     <string name="torch_long_press_power_gesture_title">長押しでライト点灯</string>
@@ -349,6 +353,7 @@
     <string name="status_bar_clock_show_seconds_title">秒を表示</string>
     <string name="status_bar_clock_show_seconds_summary">時間、分、秒を表示します</string>
     <string name="status_bar_clock_auto_hide_title">自動的に隠す</string>
+    <string name="status_bar_clock_auto_hide_summary">ホームアプリを表示しているときは時計を隠します</string>
     <string name="status_bar_clock_position_title">時計のスタイル</string>
     <string name="status_bar_clock_position_right">右</string>
     <string name="status_bar_clock_position_left">左</string>
@@ -512,7 +517,10 @@
     <string name="trust_onboarding_learn_more">詳細</string>
     <string name="trust_onboarding_done">わかりました</string>
     <string name="trust_restrict_usb_title">USB の制限</string>
-    <string name="trust_restrict_usb_summary">端末ロック時は新しい USB 周辺機器を無効にします</string>
+    <string name="trust_restrict_usb_summary">イヤホン、ストレージデバイス、入力 (マウス、キーボード、ジョイスティック)、ADB などの USB 接続の制御サポート</string>
+    <string name="trust_restrict_usb_always">USB 接続を拒否</string>
+    <string name="trust_restrict_usb_keyguard">ロック解除時に USB 接続を許可する</string>
+    <string name="trust_restrict_usb_disabled">常に USB 接続を許可する</string>
     <string name="sms_security_check_limit_title">SMS メッセージの制限</string>
     <string name="sms_security_check_limit_summary">アプリは確認をする前に1分間に%s通のメッセージを送信できます</string>
     <string name="sms_security_check_limit_summary_none">アプリは許可無くメッセージを送信することはできません</string>

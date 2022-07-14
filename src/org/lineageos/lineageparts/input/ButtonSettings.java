@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2016 The CyanogenMod project
- *               2017-2021 The LineageOS project
+ *               2017-2022 The LineageOS project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,16 @@
 
 package org.lineageos.lineageparts.input;
 
+import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_2BUTTON;
+import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_3BUTTON_OVERLAY;
+import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL_OVERLAY;
+
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.om.IOverlayManager;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
@@ -29,6 +34,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.RemoteException;
+import android.os.ServiceManager;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.ArraySet;
@@ -44,6 +50,8 @@ import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreference;
+
+import static com.android.systemui.shared.recents.utilities.Utilities.isTablet;
 
 import org.lineageos.lineageparts.R;
 import org.lineageos.lineageparts.SettingsPreferenceFragment;
@@ -110,7 +118,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
             "click_partial_screenshot";
     /*
     private static final String KEY_SWAP_CAPACITIVE_KEYS = "swap_capacitive_keys";
+    private static final String KEY_NAV_BAR_INVERSE = "sysui_nav_bar_inverse";
+    private static final String KEY_ENABLE_TASKBAR = "enable_taskbar";
     */
+
     private static final String CATEGORY_POWER = "power_key";
     /*
     private static final String CATEGORY_HOME = "home_key";
@@ -156,6 +167,8 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private ListPreference mTorchLongPressPowerTimeout;
     /*
     private SwitchPreference mSwapCapacitiveKeys;
+    private SwitchPreference mNavBarInverse;
+    private SwitchPreference mEnableTaskbar;
 
     private PreferenceCategory mNavigationPreferencesCat;
 
@@ -494,6 +507,21 @@ public class ButtonSettings extends SettingsPreferenceFragment
             mSwapCapacitiveKeys.setDependency(KEY_DISABLE_NAV_KEYS);
         }
 
+        mNavBarInverse = findPreference(KEY_NAV_BAR_INVERSE);
+
+        mEnableTaskbar = findPreference(KEY_ENABLE_TASKBAR);
+        if (mEnableTaskbar != null) {
+            if (!isTablet(getContext()) || !hasNavigationBar()) {
+                mNavigationPreferencesCat.removePreference(mEnableTaskbar);
+            } else {
+                mEnableTaskbar.setOnPreferenceChangeListener(this);
+                mEnableTaskbar.setChecked(LineageSettings.System.getInt(getContentResolver(),
+                        LineageSettings.System.ENABLE_TASKBAR,
+                        isTablet(getContext()) ? 1 : 0) == 1);
+                toggleTaskBarDependencies(mEnableTaskbar.isChecked());
+            }
+        }
+
         // Override key actions on Go devices in order to hide any unsupported features
         if (ActivityManager.isLowRamDeviceStatic()) {
             String[] actionEntriesGo = res.getStringArray(R.array.hardware_keys_action_entries_go);
@@ -671,12 +699,62 @@ public class ButtonSettings extends SettingsPreferenceFragment
         } else if (preference == mSwapCapacitiveKeys) {
             mHardware.set(LineageHardwareManager.FEATURE_KEY_SWAP, (Boolean) newValue);
             return true;
+        } else if (preference == mEnableTaskbar) {
+            toggleTaskBarDependencies((Boolean) newValue);
+            if ((Boolean) newValue && is2ButtonNavigationEnabled(getContext())) {
+                // Let's switch to gestural mode if user previously had 2 buttons enabled.
+                setButtonNavigationMode(NAV_BAR_MODE_GESTURAL_OVERLAY);
+            }
+            LineageSettings.System.putInt(getContentResolver(),
+                    LineageSettings.System.ENABLE_TASKBAR, ((Boolean) newValue) ? 1 : 0);
+            return true;
         */
         }
         return false;
     }
 
     /*
+    private static boolean is2ButtonNavigationEnabled(Context context) {
+        return NAV_BAR_MODE_2BUTTON == context.getResources().getInteger(
+                com.android.internal.R.integer.config_navBarInteractionMode);
+    }
+
+    private static void setButtonNavigationMode(String overlayPackage) {
+        IOverlayManager overlayManager = IOverlayManager.Stub.asInterface(
+                ServiceManager.getService(Context.OVERLAY_SERVICE));
+        try {
+            overlayManager.setEnabledExclusiveInCategory(overlayPackage, UserHandle.USER_CURRENT);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    private void toggleTaskBarDependencies(boolean enabled) {
+        if (mNavigationArrowKeys != null) {
+            mNavigationArrowKeys.setEnabled(!enabled);
+        }
+
+        if (mNavBarInverse != null) {
+            mNavBarInverse.setEnabled(!enabled);
+        }
+
+        if (mNavigationBackLongPressAction != null) {
+            mNavigationBackLongPressAction.setEnabled(!enabled);
+        }
+
+        if (mNavigationHomeLongPressAction != null) {
+            mNavigationHomeLongPressAction.setEnabled(!enabled);
+        }
+
+        if (mNavigationHomeDoubleTapAction != null) {
+            mNavigationHomeDoubleTapAction.setEnabled(!enabled);
+        }
+
+        if (mNavigationAppSwitchLongPressAction != null) {
+            mNavigationAppSwitchLongPressAction.setEnabled(!enabled);
+        }
+    }
+
     private static void writeDisableNavkeysOption(Context context, boolean enabled) {
         LineageSettings.System.putIntForUser(context.getContentResolver(),
                 LineageSettings.System.FORCE_SHOW_NAVBAR, enabled ? 1 : 0, UserHandle.USER_CURRENT);
@@ -856,6 +934,9 @@ public class ButtonSettings extends SettingsPreferenceFragment
         } else if (preference == mDisableNavigationKeys) {
             mDisableNavigationKeys.setEnabled(false);
             mNavigationPreferencesCat.setEnabled(false);
+            if (!mDisableNavigationKeys.isChecked()) {
+                setButtonNavigationMode(NAV_BAR_MODE_3BUTTON_OVERLAY);
+            }
             writeDisableNavkeysOption(getActivity(), mDisableNavigationKeys.isChecked());
             updateDisableNavkeysOption();
             updateDisableNavkeysCategories(true, false);

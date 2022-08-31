@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 The CyanogenMod Project
+ * Copyright (C) 2022 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +20,17 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
-import org.lineageos.internal.lineageparts.PartInfo;
-import org.lineageos.internal.lineageparts.PartsList;
+import lineageos.preference.PartInfo;
+import lineageos.preference.PartsList;
 
 import java.lang.reflect.Field;
 
 import lineageos.preference.RemotePreferenceUpdater;
 import lineageos.preference.SettingsHelper;
 
+import static lineageos.preference.PartsList.EXTRA_PART;
 import static lineageos.preference.RemotePreference.EXTRA_KEY;
 import static lineageos.preference.RemotePreference.EXTRA_SUMMARY;
-import static org.lineageos.internal.lineageparts.PartsList.EXTRA_PART;
 
 /**
  * PartsRefresher keeps remote UI clients up to date with any changes in the
@@ -62,7 +63,7 @@ public class PartsUpdater extends RemotePreferenceUpdater {
             return null;
         }
 
-        if (clazz == null || !Refreshable.class.isAssignableFrom(clazz)) {
+        if (!Refreshable.class.isAssignableFrom(clazz)) {
             return null;
         }
 
@@ -99,8 +100,8 @@ public class PartsUpdater extends RemotePreferenceUpdater {
     }
 
     public interface Refreshable extends SettingsHelper.OnSettingsChangeListener {
-        public interface SummaryProvider {
-            public String getSummary(Context context, String key);
+        interface SummaryProvider {
+            String getSummary(Context context, String key);
         }
     }
 }

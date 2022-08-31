@@ -21,18 +21,14 @@ import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_2BUTTON;
 import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_3BUTTON_OVERLAY;
 import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL_OVERLAY;
 
-import android.app.ActivityManager;
-import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.om.IOverlayManager;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.UserHandle;
@@ -63,6 +59,8 @@ import org.lineageos.internal.util.ScreenType;
 
 import static org.lineageos.internal.util.DeviceKeysConstants.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -108,8 +106,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
     /*
     private ListPreference mVolumeKeyCursorControl;
-    private SwitchPreference mVolumeWakeScreen;
-    private SwitchPreference mVolumeMusicControls;
     private SwitchPreference mNavigationArrowKeys;
     private ListPreference mNavigationBackLongPressAction;
     private ListPreference mNavigationHomeLongPressAction;
@@ -117,7 +113,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private ListPreference mNavigationAppSwitchLongPressAction;
     private SwitchPreference mPowerEndCall;
     */
-    private SwitchPreference mTorchLongPressPowerGesture;
     private ListPreference mTorchLongPressPowerTimeout;
     /*
     private SwitchPreference mNavBarInverse;
@@ -157,7 +152,8 @@ public class ButtonSettings extends SettingsPreferenceFragment
         */
 
         // Long press power while display is off to activate torchlight
-        mTorchLongPressPowerGesture = findPreference(KEY_TORCH_LONG_PRESS_POWER_GESTURE);
+        SwitchPreference torchLongPressPowerGesture =
+                findPreference(KEY_TORCH_LONG_PRESS_POWER_GESTURE);
         final int torchLongPressPowerTimeout = LineageSettings.System.getInt(resolver,
                 LineageSettings.System.TORCH_LONG_PRESS_POWER_TIMEOUT, 0);
         mTorchLongPressPowerTimeout = initList(KEY_TORCH_LONG_PRESS_POWER_TIMEOUT,
@@ -215,7 +211,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
             }
             */
             if (!DeviceUtils.deviceSupportsFlashLight(getActivity())) {
-                powerCategory.removePreference(mTorchLongPressPowerGesture);
+                powerCategory.removePreference(torchLongPressPowerGesture);
                 powerCategory.removePreference(mTorchLongPressPowerTimeout);
             }
         }
@@ -246,13 +242,13 @@ public class ButtonSettings extends SettingsPreferenceFragment
             prefScreen.removePreference(volumeCategory);
         }
 
-        mVolumeWakeScreen = findPreference(KEY_VOLUME_WAKE_SCREEN);
-        mVolumeMusicControls = findPreference(KEY_VOLUME_MUSIC_CONTROLS);
+        SwitchPreference volumeWakeScreen = findPreference(KEY_VOLUME_WAKE_SCREEN);
+        SwitchPreference volumeMusicControls = findPreference(KEY_VOLUME_MUSIC_CONTROLS);
 
-        if (mVolumeWakeScreen != null) {
-            if (mVolumeMusicControls != null) {
-                mVolumeMusicControls.setDependency(KEY_VOLUME_WAKE_SCREEN);
-                mVolumeWakeScreen.setDisableDependentsState(true);
+        if (volumeWakeScreen != null) {
+            if (volumeMusicControls != null) {
+                volumeMusicControls.setDependency(KEY_VOLUME_WAKE_SCREEN);
+                volumeWakeScreen.setDisableDependentsState(true);
             }
         }
 
@@ -264,30 +260,43 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 mNavigationPreferencesCat.removePreference(mEnableTaskbar);
             } else {
                 mEnableTaskbar.setOnPreferenceChangeListener(this);
-                mEnableTaskbar.setChecked(LineageSettings.System.getInt(getContentResolver(),
+                mEnableTaskbar.setChecked(LineageSettings.System.getInt(resolver,
                         LineageSettings.System.ENABLE_TASKBAR,
                         isTablet(getContext()) ? 1 : 0) == 1);
                 toggleTaskBarDependencies(mEnableTaskbar.isChecked());
             }
         }
 
-        // Override key actions on Go devices in order to hide any unsupported features
-        if (ActivityManager.isLowRamDeviceStatic()) {
-            String[] actionEntriesGo = res.getStringArray(R.array.hardware_keys_action_entries_go);
-            String[] actionValuesGo = res.getStringArray(R.array.hardware_keys_action_values_go);
+        List<Integer> unsupportedValues = new ArrayList<>();
+        List<String> entries = new ArrayList<>(
+                Arrays.asList(res.getStringArray(R.array.hardware_keys_action_entries)));
+        List<String> values = new ArrayList<>(
+                Arrays.asList(res.getStringArray(R.array.hardware_keys_action_values)));
 
-            mNavigationBackLongPressAction.setEntries(actionEntriesGo);
-            mNavigationBackLongPressAction.setEntryValues(actionValuesGo);
+        // hide split screen option unconditionally - it doesn't work at the moment
+        // once someone gets it working again: hide it only for low-ram devices
+        // (check ActivityManager.isLowRamDeviceStatic())
+        unsupportedValues.add(Action.SPLIT_SCREEN.ordinal());
 
-            mNavigationHomeLongPressAction.setEntries(actionEntriesGo);
-            mNavigationHomeLongPressAction.setEntryValues(actionValuesGo);
-
-            mNavigationHomeDoubleTapAction.setEntries(actionEntriesGo);
-            mNavigationHomeDoubleTapAction.setEntryValues(actionValuesGo);
-
-            mNavigationAppSwitchLongPressAction.setEntries(actionEntriesGo);
-            mNavigationAppSwitchLongPressAction.setEntryValues(actionValuesGo);
+        for (int unsupportedValue: unsupportedValues) {
+            entries.remove(unsupportedValue);
+            values.remove(unsupportedValue);
         }
+
+        String[] actionEntries = entries.toArray(new String[0]);
+        String[] actionValues = values.toArray(new String[0]);
+
+        mNavigationBackLongPressAction.setEntries(actionEntries);
+        mNavigationBackLongPressAction.setEntryValues(actionValues);
+
+        mNavigationHomeLongPressAction.setEntries(actionEntries);
+        mNavigationHomeLongPressAction.setEntryValues(actionValues);
+
+        mNavigationHomeDoubleTapAction.setEntries(actionEntries);
+        mNavigationHomeDoubleTapAction.setEntryValues(actionValues);
+
+        mNavigationAppSwitchLongPressAction.setEntries(actionEntries);
+        mNavigationAppSwitchLongPressAction.setEntryValues(actionValues);
         */
     }
 
@@ -382,28 +391,17 @@ public class ButtonSettings extends SettingsPreferenceFragment
     }
 
     private void toggleTaskBarDependencies(boolean enabled) {
-        if (mNavigationArrowKeys != null) {
-            mNavigationArrowKeys.setEnabled(!enabled);
-        }
+        enablePreference(mNavigationArrowKeys, !enabled);
+        enablePreference(mNavBarInverse, !enabled);
+        enablePreference(mNavigationBackLongPressAction, !enabled);
+        enablePreference(mNavigationHomeLongPressAction, !enabled);
+        enablePreference(mNavigationHomeDoubleTapAction, !enabled);
+        enablePreference(mNavigationAppSwitchLongPressAction, !enabled);
+    }
 
-        if (mNavBarInverse != null) {
-            mNavBarInverse.setEnabled(!enabled);
-        }
-
-        if (mNavigationBackLongPressAction != null) {
-            mNavigationBackLongPressAction.setEnabled(!enabled);
-        }
-
-        if (mNavigationHomeLongPressAction != null) {
-            mNavigationHomeLongPressAction.setEnabled(!enabled);
-        }
-
-        if (mNavigationHomeDoubleTapAction != null) {
-            mNavigationHomeDoubleTapAction.setEnabled(!enabled);
-        }
-
-        if (mNavigationAppSwitchLongPressAction != null) {
-            mNavigationAppSwitchLongPressAction.setEnabled(!enabled);
+    private void enablePreference(Preference pref, boolean enabled) {
+        if (pref != null) {
+            pref.setEnabled(enabled);
         }
     }
     */

@@ -1,6 +1,6 @@
-/**
+/*
  * Copyright (C) 2016 The CyanogenMod project
- *               2017,2019-2020 The LineageOS Project
+ *               2017,2019-2022 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.UserHandle;
 import android.util.ArraySet;
-import android.util.Log;
 
 import androidx.preference.ListPreference;
 import androidx.preference.PreferenceManager;
@@ -219,7 +218,7 @@ public class TouchscreenGestureSettings extends SettingsPreferenceFragment
 
         @Override
         public Set<String> getNonIndexableKeys(Context context) {
-            final Set<String> result = new ArraySet<String>();
+            final Set<String> result = new ArraySet<>();
 
             if (!isTouchscreenGesturesSupported(context)) {
                 result.add(KEY_TOUCHSCREEN_GESTURE_SETTINGS);

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2016 The CyanogenMod Project
- *               2017-2019,2021 The LineageOS Project
+ *               2017-2019,2021-2022 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,8 +37,8 @@ import androidx.preference.PreferenceScreen;
 import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
 import com.android.settingslib.widget.MainSwitchBar;
 
-import org.lineageos.internal.lineageparts.PartInfo;
-import org.lineageos.internal.lineageparts.PartsList;
+import lineageos.preference.PartInfo;
+import lineageos.preference.PartsList;
 
 public class PartsActivity extends CollapsingToolbarBaseActivity implements
         PreferenceFragment.OnPreferenceStartFragmentCallback,
@@ -157,7 +157,8 @@ public class PartsActivity extends CollapsingToolbarBaseActivity implements
     }
 
     public void startPreferencePanel(String fragmentClass, Bundle args, int titleRes,
-                                     CharSequence titleText, Fragment resultTo, int resultRequestCode) {
+                                     CharSequence titleText, Fragment resultTo,
+                                     int resultRequestCode) {
         String title = null;
         if (titleRes < 0) {
             if (titleText != null) {

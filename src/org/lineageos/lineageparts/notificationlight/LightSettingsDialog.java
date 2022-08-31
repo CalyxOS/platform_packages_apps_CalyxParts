@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2010 Daniel Nilsson
  * Copyright (C) 2012 The CyanogenMod Project
- *               2017,2019-2021 The LineageOS Project
+ *               2017,2019-2022 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@
 
 package org.lineageos.lineageparts.notificationlight;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -27,6 +26,7 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -63,8 +63,6 @@ public class LightSettingsDialog extends AlertDialog implements
     private final static long LED_UPDATE_DELAY_MS = 250;
 
     private ColorPickerView mColorPicker;
-    private LinearLayout mColorPanel;
-    private View mLightsDialogDivider;
 
     private EditText mHexColorInput;
     private ColorPanelView mNewColor;
@@ -86,12 +84,6 @@ public class LightSettingsDialog extends AlertDialog implements
 
     private Context mContext;
 
-    /**
-     * @param context
-     * @param initialColor
-     * @param initialSpeedOn
-     * @param initialSpeedOff
-     */
     protected LightSettingsDialog(Context context, int initialColor, int initialSpeedOn,
             int initialSpeedOff) {
         super(context);
@@ -99,13 +91,6 @@ public class LightSettingsDialog extends AlertDialog implements
         init(context, initialColor, initialSpeedOn, initialSpeedOff, true, 0);
     }
 
-    /**
-     * @param context
-     * @param initialColor
-     * @param initialSpeedOn
-     * @param initialSpeedOff
-     * @param onOffChangeable
-     */
     protected LightSettingsDialog(Context context, int initialColor, int initialSpeedOn,
             int initialSpeedOff, boolean onOffChangeable, int brightness) {
         super(context);
@@ -139,14 +124,11 @@ public class LightSettingsDialog extends AlertDialog implements
         mInflater = mContext.getSystemService(LayoutInflater.class);
         View layout = mInflater.inflate(R.layout.dialog_light_settings, null);
 
-        mColorPicker = (ColorPickerView) layout.findViewById(R.id.color_picker_view);
-        mColorPanel = (LinearLayout) layout.findViewById(R.id.color_panel_view);
-        mHexColorInput = (EditText) layout.findViewById(R.id.hex_color_input);
-        mNewColor = (ColorPanelView) layout.findViewById(R.id.color_panel);
-        mLightsDialogDivider = (View) layout.findViewById(R.id.lights_dialog_divider);
-        mPulseSpeedOn = (Spinner) layout.findViewById(R.id.on_spinner);
-        mPulseSpeedOff = (Spinner) layout.findViewById(R.id.off_spinner);
-
+        mColorPicker = layout.findViewById(R.id.color_picker_view);
+        mHexColorInput = layout.findViewById(R.id.hex_color_input);
+        mNewColor = layout.findViewById(R.id.color_panel);
+        mPulseSpeedOn = layout.findViewById(R.id.on_spinner);
+        mPulseSpeedOff = layout.findViewById(R.id.off_spinner);
         mColorPicker.setOnColorChangedListener(this);
         mColorPicker.setColor(color, true);
 
@@ -181,8 +163,10 @@ public class LightSettingsDialog extends AlertDialog implements
         if (!LightsCapabilities.supports(
                 mContext, LightsCapabilities.LIGHTS_RGB_NOTIFICATION_LED)) {
             mColorPicker.setVisibility(View.GONE);
-            mColorPanel.setVisibility(View.GONE);
-            mLightsDialogDivider.setVisibility(View.GONE);
+            LinearLayout colorPanel = layout.findViewById(R.id.color_panel_view);
+            colorPanel.setVisibility(View.GONE);
+            View lightsDialogDivider = layout.findViewById(R.id.lights_dialog_divider);
+            lightsDialogDivider.setVisibility(View.GONE);
         }
 
         mLedBrightness = brightness;
@@ -192,7 +176,7 @@ public class LightSettingsDialog extends AlertDialog implements
         updateLed();
     }
 
-    private AdapterView.OnItemSelectedListener mPulseSelectionListener =
+    private final AdapterView.OnItemSelectedListener mPulseSelectionListener =
             new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -245,7 +229,8 @@ public class LightSettingsDialog extends AlertDialog implements
     }
 
     public void setAlphaSliderVisible(boolean visible) {
-        mHexColorInput.setFilters(new InputFilter[] { new InputFilter.LengthFilter(visible ? 8 : 6) } );
+        mHexColorInput.setFilters(new InputFilter[] {
+                new InputFilter.LengthFilter(visible ? 8 : 6) } );
         mColorPicker.setAlphaSliderVisible(visible);
     }
 
@@ -273,14 +258,16 @@ public class LightSettingsDialog extends AlertDialog implements
     @SuppressWarnings("unchecked")
     public int getPulseSpeedOff() {
         // return 0 if 'Always on' is selected
-        return getPulseSpeedOn() == 1 ? 0 : ((Pair<String, Integer>) mPulseSpeedOff.getSelectedItem()).second;
+        return getPulseSpeedOn() == 1
+                ? 0
+                : ((Pair<String, Integer>) mPulseSpeedOff.getSelectedItem()).second;
     }
 
     public void setPulseSpeedOff(int speedOff) {
         mPulseSpeedOff.setSelection(mPulseSpeedAdapterOff.getTimePosition(speedOff));
     }
 
-    private Handler mLedHandler = new Handler() {
+    private final Handler mLedHandler = new Handler(Looper.getMainLooper()) {
         public void handleMessage(Message msg) {
             updateLed();
         }
@@ -363,16 +350,16 @@ public class LightSettingsDialog extends AlertDialog implements
     }
 
     class PulseSpeedAdapter extends BaseAdapter implements SpinnerAdapter {
-        private ArrayList<Pair<String, Integer>> times;
+        private final ArrayList<Pair<String, Integer>> times;
 
         public PulseSpeedAdapter(int timeNamesResource, int timeValuesResource) {
-            times = new ArrayList<Pair<String, Integer>>();
+            times = new ArrayList<>();
 
             String[] time_names = mContext.getResources().getStringArray(timeNamesResource);
             String[] time_values = mContext.getResources().getStringArray(timeValuesResource);
 
             for(int i = 0; i < time_values.length; ++i) {
-                times.add(new Pair<String, Integer>(time_names[i], Integer.decode(time_values[i])));
+                times.add(new Pair<>(time_names[i], Integer.decode(time_values[i])));
             }
 
         }
@@ -388,7 +375,8 @@ public class LightSettingsDialog extends AlertDialog implements
          * @param customTime Current time value that might be one of the
          *            predefined values or a totally custom value
          */
-        public PulseSpeedAdapter(int timeNamesResource, int timeValuesResource, Integer customTime) {
+        public PulseSpeedAdapter(int timeNamesResource, int timeValuesResource,
+                                 Integer customTime) {
             this(timeNamesResource, timeValuesResource);
 
             // Check if we also need to add the custom value entry

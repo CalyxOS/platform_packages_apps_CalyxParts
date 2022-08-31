@@ -21,7 +21,6 @@ import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
@@ -32,11 +31,9 @@ import android.graphics.Rect;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
-import android.net.ConnectivityManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.SystemProperties;
-import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.telephony.SubscriptionManager;
 import android.text.TextUtils;
@@ -182,10 +179,9 @@ public class DeviceUtils {
 
     /**
      * Locks the activity orientation to the current device orientation
-     * @param activity
      */
     public static void lockCurrentOrientation(Activity activity) {
-        int currentRotation = activity.getWindowManager().getDefaultDisplay().getRotation();
+        int currentRotation = activity.getDisplay().getRotation();
         int orientation = activity.getResources().getConfiguration().orientation;
         int frozenRotation = 0;
         switch (currentRotation) {

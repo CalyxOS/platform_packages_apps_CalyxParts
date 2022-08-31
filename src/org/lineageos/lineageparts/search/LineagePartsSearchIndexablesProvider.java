@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 The CyanogenMod Project
+ * Copyright (C) 2022 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,7 +90,8 @@ public class LineagePartsSearchIndexablesProvider extends SearchIndexablesProvid
             ref[COLUMN_INDEX_XML_RES_CLASS_NAME] = null;
             ref[COLUMN_INDEX_XML_RES_ICON_RESID] = R.drawable.ic_launcher_lineageos;
             ref[COLUMN_INDEX_XML_RES_INTENT_ACTION] = i.getAction();
-            ref[COLUMN_INDEX_XML_RES_INTENT_TARGET_PACKAGE] = LINEAGEPARTS_ACTIVITY.getPackageName();
+            ref[COLUMN_INDEX_XML_RES_INTENT_TARGET_PACKAGE] = LINEAGEPARTS_ACTIVITY.
+                    getPackageName();
             ref[COLUMN_INDEX_XML_RES_INTENT_TARGET_CLASS] = LINEAGEPARTS_ACTIVITY.getClassName();
             cursor.addRow(ref);
         }
@@ -208,7 +210,7 @@ public class LineagePartsSearchIndexablesProvider extends SearchIndexablesProvid
             return null;
         }
 
-        if (clazz == null || !Searchable.class.isAssignableFrom(clazz)) {
+        if (!Searchable.class.isAssignableFrom(clazz)) {
             return null;
         }
 

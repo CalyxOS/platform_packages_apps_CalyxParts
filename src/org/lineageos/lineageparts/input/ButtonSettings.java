@@ -90,9 +90,9 @@ public class ButtonSettings extends SettingsPreferenceFragment
             "torch_long_press_power_gesture";
     private static final String KEY_TORCH_LONG_PRESS_POWER_TIMEOUT =
             "torch_long_press_power_timeout";
+    /*
     private static final String KEY_CLICK_PARTIAL_SCREENSHOT =
             "click_partial_screenshot";
-    /*
     private static final String KEY_NAV_BAR_INVERSE = "sysui_nav_bar_inverse";
     private static final String KEY_ENABLE_TASKBAR = "enable_taskbar";
     */
@@ -101,8 +101,8 @@ public class ButtonSettings extends SettingsPreferenceFragment
     /*
     private static final String CATEGORY_VOLUME = "volume_keys";
     private static final String CATEGORY_NAVBAR = "navigation_bar_category";
-    */
     private static final String CATEGORY_EXTRAS = "extras_category";
+    */
 
     /*
     private ListPreference mVolumeKeyCursorControl;
@@ -134,9 +134,9 @@ public class ButtonSettings extends SettingsPreferenceFragment
         final PreferenceScreen prefScreen = getPreferenceScreen();
 
         final boolean hasPowerKey = DeviceUtils.hasPowerKey();
+        /*
         final boolean hasVolumeKeys = DeviceUtils.hasVolumeKeys(getActivity());
 
-        /*
         final boolean showVolumeWake = DeviceUtils.canWakeUsingVolumeKeys(getActivity());
         */
 
@@ -146,7 +146,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
         */
         final PreferenceCategory extrasCategory = prefScreen.findPreference(CATEGORY_EXTRAS);
 
-        /*
         // Power button ends calls.
         mPowerEndCall = findPreference(KEY_POWER_END_CALL);
         */
@@ -219,8 +218,8 @@ public class ButtonSettings extends SettingsPreferenceFragment
             prefScreen.removePreference(powerCategory);
         }
 
+        /*
         if (hasVolumeKeys) {
-            /*
             if (!showVolumeWake) {
                 volumeCategory.removePreference(findPreference(KEY_VOLUME_WAKE_SCREEN));
             }
@@ -233,11 +232,9 @@ public class ButtonSettings extends SettingsPreferenceFragment
                     "volume_key_cursor_control", 0);
             mVolumeKeyCursorControl = initList(KEY_VOLUME_KEY_CURSOR_CONTROL,
                     cursorControlAction);
-            */
         } else {
             extrasCategory.removePreference(findPreference(KEY_CLICK_PARTIAL_SCREENSHOT));
         }
-        /*
         if (!hasVolumeKeys || volumeCategory.getPreferenceCount() == 0) {
             prefScreen.removePreference(volumeCategory);
         }
@@ -448,22 +445,18 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 result.add(KEY_POWER_END_CALL);
                 result.add(KEY_VOLUME_ANSWER_CALL);
             }
-            */
 
             if (!DeviceUtils.hasVolumeKeys(context)) {
-                /*
                 result.add(CATEGORY_VOLUME);
                 result.add(KEY_VOLUME_ANSWER_CALL);
                 result.add(KEY_VOLUME_KEY_CURSOR_CONTROL);
                 result.add(KEY_VOLUME_MUSIC_CONTROLS);
                 result.add(KEY_VOLUME_WAKE_SCREEN);
-                */
                 result.add(KEY_CLICK_PARTIAL_SCREENSHOT);
-            /*
             } else if (!DeviceUtils.canWakeUsingVolumeKeys(context)) {
                 result.add(KEY_VOLUME_WAKE_SCREEN);
-            */
             }
+            */
 
             if (!DeviceUtils.deviceSupportsFlashLight(context)) {
                 result.add(KEY_TORCH_LONG_PRESS_POWER_GESTURE);

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014-2015 The CyanogenMod Project
- *               2017-2022 The LineageOS Project
+ *               2017-2023 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,7 +54,8 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         // Adjust status bar preferences for RTL
         if (getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
             mQuickPulldown.setEntries(R.array.status_bar_quick_qs_pulldown_entries_rtl);
-            mQuickPulldown.setEntryValues(R.array.status_bar_quick_qs_pulldown_values_rtl);
+        } else {
+            mQuickPulldown.setEntries(R.array.status_bar_quick_qs_pulldown_entries);
         }
     }
 
@@ -82,7 +83,10 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             case PULLDOWN_DIR_RIGHT:
                 summary = getResources().getString(
                     R.string.status_bar_quick_qs_pulldown_summary,
-                    getResources().getString(value == PULLDOWN_DIR_LEFT
+                    getResources().getString(
+                        (value == PULLDOWN_DIR_LEFT) ^
+                        (getResources().getConfiguration().getLayoutDirection()
+                            == View.LAYOUT_DIRECTION_RTL)
                         ? R.string.status_bar_quick_qs_pulldown_summary_left
                         : R.string.status_bar_quick_qs_pulldown_summary_right));
                 break;

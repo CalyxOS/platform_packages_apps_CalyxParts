@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2021 The LineageOS Project
+ * Copyright (C) 2017-2023 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package org.lineageos.lineageparts.statusbar;
 
 import android.content.ContentResolver;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.preference.DropDownPreference;
 import androidx.preference.Preference;
@@ -26,6 +27,7 @@ import lineageos.preference.LineageSecureSettingSwitchPreference;
 import lineageos.providers.LineageSettings;
 import org.lineageos.lineageparts.R;
 import org.lineageos.lineageparts.SettingsPreferenceFragment;
+import org.lineageos.lineageparts.utils.DeviceUtils;
 
 
 public class NetworkTrafficSettings extends SettingsPreferenceFragment
@@ -33,7 +35,12 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
 
     private static final String TAG = "NetworkTrafficSettings";
 
+    private static final int POSITION_START = 0;
+    private static final int POSITION_CENTER = 1;
+    private static final int POSITION_END = 2;
+
     private DropDownPreference mNetTrafficMode;
+    private DropDownPreference mNetTrafficPosition;
     private LineageSecureSettingSwitchPreference mNetTrafficAutohide;
     private DropDownPreference mNetTrafficUnits;
     private LineageSecureSettingSwitchPreference mNetTrafficShowUnits;
@@ -51,6 +58,41 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
         int mode = LineageSettings.Secure.getInt(resolver,
                 LineageSettings.Secure.NETWORK_TRAFFIC_MODE, 0);
         mNetTrafficMode.setValue(String.valueOf(mode));
+
+        final boolean hasCenteredCutout = DeviceUtils.hasCenteredCutout(getActivity());
+        final boolean disallowCenteredTraffic = hasCenteredCutout;
+
+        mNetTrafficPosition = findPreference(LineageSettings.Secure.NETWORK_TRAFFIC_POSITION);
+        mNetTrafficPosition.setOnPreferenceChangeListener(this);
+
+        // Adjust network traffic preferences for RTL
+        if (getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            if (disallowCenteredTraffic) {
+                mNetTrafficPosition.setEntries(R.array.network_traffic_position_entries_notch_rtl);
+                mNetTrafficPosition.setEntryValues(R.array.network_traffic_position_values_notch);
+            } else {
+                mNetTrafficPosition.setEntries(R.array.network_traffic_position_entries_rtl);
+                mNetTrafficPosition.setEntryValues(R.array.network_traffic_position_values);
+            }
+        } else {
+            if (disallowCenteredTraffic) {
+                mNetTrafficPosition.setEntries(R.array.network_traffic_position_entries_notch);
+                mNetTrafficPosition.setEntryValues(R.array.network_traffic_position_values_notch);
+            } else {
+                mNetTrafficPosition.setEntries(R.array.network_traffic_position_entries);
+                mNetTrafficPosition.setEntryValues(R.array.network_traffic_position_values);
+            }
+        }
+
+        int position = LineageSettings.Secure.getInt(resolver,
+                LineageSettings.Secure.NETWORK_TRAFFIC_POSITION, POSITION_CENTER);
+
+        if (disallowCenteredTraffic && position == POSITION_CENTER) {
+            position = POSITION_END;
+            LineageSettings.Secure.putInt(getActivity().getContentResolver(),
+                LineageSettings.Secure.NETWORK_TRAFFIC_POSITION, position);
+        }
+        mNetTrafficPosition.setValue(String.valueOf(position));
 
         mNetTrafficAutohide = findPreference(LineageSettings.Secure.NETWORK_TRAFFIC_AUTOHIDE);
         mNetTrafficAutohide.setOnPreferenceChangeListener(this);
@@ -74,6 +116,10 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
             LineageSettings.Secure.putInt(getActivity().getContentResolver(),
                     LineageSettings.Secure.NETWORK_TRAFFIC_MODE, mode);
             updateEnabledStates(mode);
+        } else if (preference == mNetTrafficPosition) {
+            int position = Integer.valueOf((String) newValue);
+            LineageSettings.Secure.putInt(getActivity().getContentResolver(),
+                    LineageSettings.Secure.NETWORK_TRAFFIC_POSITION, position);
         } else if (preference == mNetTrafficUnits) {
             int units = Integer.valueOf((String) newValue);
             LineageSettings.Secure.putInt(getActivity().getContentResolver(),
@@ -84,6 +130,7 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
 
     private void updateEnabledStates(int mode) {
         final boolean enabled = mode != 0;
+        mNetTrafficPosition.setEnabled(enabled);
         mNetTrafficAutohide.setEnabled(enabled);
         mNetTrafficUnits.setEnabled(enabled);
         mNetTrafficShowUnits.setEnabled(enabled);

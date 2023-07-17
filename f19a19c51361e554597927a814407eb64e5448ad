@@ -36,6 +36,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfab852a_e0606e1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-07-17T13:23:33Z",
+      "side": 1,
+      "message": "I was thinking more of trying to keep the code around and just hiding the setting / not adding it to Settings where feasible. Getting some things to compile might be harder though.",
+      "parentUuid": "8d8bd5ea_44f9c692",
+      "revId": "f19a19c51361e554597927a814407eb64e5448ad",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2af0d643_a1d5408c",

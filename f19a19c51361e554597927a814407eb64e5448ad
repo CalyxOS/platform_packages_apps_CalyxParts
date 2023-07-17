@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acd73485_f8f3918b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-07-17T13:11:45Z",
+      "side": 1,
+      "message": "Let\u0027s try to figure out a better way than commenting things out soon.",
+      "revId": "f19a19c51361e554597927a814407eb64e5448ad",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2af0d643_a1d5408c",
+        "filename": "src/org/lineageos/lineageparts/input/ButtonSettings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-07-17T13:11:45Z",
+      "side": 1,
+      "message": "I thought we already had this.",
+      "revId": "f19a19c51361e554597927a814407eb64e5448ad",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d499c27b_9592998e",
+        "filename": "src/org/lineageos/lineageparts/input/ButtonSettings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-07-17T13:11:45Z",
+      "side": 1,
+      "message": "And this too, yet it looks like this commit is the one uncommenting it.",
+      "revId": "f19a19c51361e554597927a814407eb64e5448ad",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}

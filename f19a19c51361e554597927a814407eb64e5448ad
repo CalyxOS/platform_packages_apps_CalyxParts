@@ -18,6 +18,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d8bd5ea_44f9c692",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-07-17T13:15:14Z",
+      "side": 1,
+      "message": "I think the majority of the other settings are unlikely to be ported so we could just remove them.",
+      "parentUuid": "acd73485_f8f3918b",
+      "revId": "f19a19c51361e554597927a814407eb64e5448ad",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2af0d643_a1d5408c",
@@ -35,6 +53,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90228d09_ee1e659b",
+        "filename": "src/org/lineageos/lineageparts/input/ButtonSettings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-07-17T13:15:14Z",
+      "side": 1,
+      "message": "We did, it\u0027s getting uncommented because the taskbar toggle needs to hide this setting.",
+      "parentUuid": "2af0d643_a1d5408c",
+      "revId": "f19a19c51361e554597927a814407eb64e5448ad",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d499c27b_9592998e",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-07-17T13:11:45Z",
       "side": 1,
       "message": "And this too, yet it looks like this commit is the one uncommenting it.",
+      "revId": "f19a19c51361e554597927a814407eb64e5448ad",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "222c24e2_498d6c8b",
+        "filename": "src/org/lineageos/lineageparts/input/ButtonSettings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-07-17T13:15:14Z",
+      "side": 1,
+      "message": "Same as above",
+      "parentUuid": "d499c27b_9592998e",
       "revId": "f19a19c51361e554597927a814407eb64e5448ad",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }

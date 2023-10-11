@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3e5781f_d79bac9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-10-11T19:23:12Z",
+      "side": 1,
+      "message": "Just the string. Perhaps we can re-use upstream string / translations somehow.\n\nPlaceholder so we don\u0027t forget",
+      "revId": "16dcfe9639a5c88c8b9a37987ee20e7a06942191",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}

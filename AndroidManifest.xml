@@ -42,7 +42,7 @@
     <protected-broadcast android:name="org.lineageos.lineageparts.REFRESH_PART" />
     <protected-broadcast android:name="org.lineageos.lineageparts.gestures.UPDATE_SETTINGS" />
 
-    <application android:label="@string/lineageparts_title"
+    <application android:label="@string/calyxparts_title"
             android:icon="@mipmap/ic_launcher"
             android:theme="@style/Theme.SubSettingsBase"
             android:hardwareAccelerated="true"

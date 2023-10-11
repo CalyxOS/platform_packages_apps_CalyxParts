@@ -34,7 +34,7 @@
         android:directBootAware="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/lineageparts_title"
+        android:label="@string/calyxparts_title"
         android:supportsRtl="true"
         android:theme="@style/Theme.SubSettingsBase">
 

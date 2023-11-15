@@ -1,18 +1,7 @@
 /*
- * Copyright (C) 2016 The CyanogenMod project
- *               2017-2022 The LineageOS project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-FileCopyrightText: 2016 The CyanogenMod project
+ * SPDX-FileCopyrightText: 2017-2023 The LineageOS project
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package org.lineageos.lineageparts.input;
@@ -36,7 +25,6 @@ import android.provider.Settings;
 import android.util.ArraySet;
 import android.util.Log;
 import android.view.Display;
-import android.view.DisplayInfo;
 import android.view.IWindowManager;
 import android.view.WindowManagerGlobal;
 
@@ -55,7 +43,6 @@ import org.lineageos.lineageparts.search.BaseSearchIndexProvider;
 import org.lineageos.lineageparts.search.Searchable;
 import org.lineageos.lineageparts.utils.DeviceUtils;
 import org.lineageos.lineageparts.utils.TelephonyUtils;
-import org.lineageos.internal.util.ScreenType;
 
 import static org.lineageos.internal.util.DeviceKeysConstants.*;
 
@@ -132,7 +119,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
         /*
         final Resources res = getResources();
         */
-        final ContentResolver resolver = getActivity().getContentResolver();
+        final ContentResolver resolver = requireActivity().getContentResolver();
         final PreferenceScreen prefScreen = getPreferenceScreen();
 
         final boolean hasPowerKey = DeviceUtils.hasPowerKey();
@@ -209,12 +196,12 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
         if (hasPowerKey) {
             /*
-            if (!TelephonyUtils.isVoiceCapable(getActivity())) {
+            if (!TelephonyUtils.isVoiceCapable(requireActivity())) {
                 powerCategory.removePreference(mPowerEndCall);
                 mPowerEndCall = null;
             }
             */
-            if (!DeviceUtils.deviceSupportsFlashLight(getActivity())) {
+            if (!DeviceUtils.deviceSupportsFlashLight(requireActivity())) {
                 powerCategory.removePreference(torchLongPressPowerGesture);
                 powerCategory.removePreference(mTorchLongPressPowerTimeout);
             }
@@ -229,7 +216,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 volumeCategory.removePreference(findPreference(KEY_VOLUME_WAKE_SCREEN));
             }
 
-            if (!TelephonyUtils.isVoiceCapable(getActivity())) {
+            if (!TelephonyUtils.isVoiceCapable(requireActivity())) {
                 volumeCategory.removePreference(findPreference(KEY_VOLUME_ANSWER_CALL));
             }
 
@@ -259,13 +246,13 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
         mEnableTaskbar = findPreference(KEY_ENABLE_TASKBAR);
         if (mEnableTaskbar != null) {
-            if (!isLargeScreen(getContext()) || !hasNavigationBar()) {
+            if (!isLargeScreen(requireContext()) || !hasNavigationBar()) {
                 mNavigationPreferencesCat.removePreference(mEnableTaskbar);
             } else {
                 mEnableTaskbar.setOnPreferenceChangeListener(this);
                 mEnableTaskbar.setChecked(LineageSettings.System.getInt(resolver,
                         LineageSettings.System.ENABLE_TASKBAR,
-                        isLargeScreen(getContext()) ? 1 : 0) == 1);
+                        isLargeScreen(requireContext()) ? 1 : 0) == 1);
                 toggleTaskBarDependencies(mEnableTaskbar.isChecked());
             }
         }
@@ -338,7 +325,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
         String value = (String) newValue;
         int index = pref.findIndexOfValue(value);
         pref.setSummary(pref.getEntries()[index]);
-        LineageSettings.System.putInt(getContentResolver(), setting, Integer.valueOf(value));
+        LineageSettings.System.putInt(getContentResolver(), setting, Integer.parseInt(value));
     }
 
     /*
@@ -346,7 +333,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
         String value = (String) newValue;
         int index = pref.findIndexOfValue(value);
         pref.setSummary(pref.getEntries()[index]);
-        Settings.System.putInt(getContentResolver(), setting, Integer.valueOf(value));
+        Settings.System.putInt(getContentResolver(), setting, Integer.parseInt(value));
     }
     */
 
@@ -365,7 +352,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
             return true;
         } else if (preference == mEnableTaskbar) {
             toggleTaskBarDependencies((Boolean) newValue);
-            if ((Boolean) newValue && is2ButtonNavigationEnabled(getContext())) {
+            if ((Boolean) newValue && is2ButtonNavigationEnabled(requireContext())) {
                 // Let's switch to gestural mode if user previously had 2 buttons enabled.
                 setButtonNavigationMode(NAV_BAR_MODE_GESTURAL_OVERLAY);
             }
@@ -443,7 +430,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
         @Override
         public Set<String> getNonIndexableKeys(Context context) {
-            final Set<String> result = new ArraySet<String>();
+            final Set<String> result = new ArraySet<>();
 
             /*
             if (!TelephonyUtils.isVoiceCapable(context)) {

@@ -1,18 +1,7 @@
 /*
- * Copyright (C) 2015 The CyanogenMod Project
- *               2017-2022 The LineageOS Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-FileCopyrightText: 2015 The CyanogenMod Project
+ * SPDX-FileCopyrightText: 2017-2023 The LineageOS Project
+ * SPDX-License-Identifier: Apache-2.0
  */
 package org.lineageos.lineageparts.livedisplay;
 
@@ -124,7 +113,7 @@ public class LiveDisplaySettings extends SettingsPreferenceFragment implements S
         super.onCreate(savedInstanceState);
         final Resources res = getResources();
         final boolean isNightDisplayAvailable =
-                ColorDisplayManager.isNightDisplayAvailable(getContext());
+                ColorDisplayManager.isNightDisplayAvailable(requireContext());
 
         mHardware = LineageHardwareManager.getInstance(getActivity());
         mLiveDisplayManager = LiveDisplayManager.getInstance(getActivity());
@@ -372,9 +361,9 @@ public class LiveDisplaySettings extends SettingsPreferenceFragment implements S
     @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         if (preference == mLiveDisplay) {
-            mLiveDisplayManager.setMode(Integer.valueOf((String)objValue));
+            mLiveDisplayManager.setMode(Integer.parseInt((String)objValue));
         } else if (preference == mColorProfile) {
-            int id = Integer.valueOf((String)objValue);
+            int id = Integer.parseInt((String)objValue);
             Log.i("LiveDisplay", "Setting mode: " + id);
             for (DisplayMode mode : mHardware.getDisplayModes()) {
                 if (mode.id == id) {
@@ -403,7 +392,7 @@ public class LiveDisplaySettings extends SettingsPreferenceFragment implements S
         @Override
         public Set<String> getNonIndexableKeys(Context context) {
             final LiveDisplayConfig config = LiveDisplayManager.getInstance(context).getConfig();
-            final Set<String> result = new ArraySet<String>();
+            final Set<String> result = new ArraySet<>();
 
             if (!config.hasFeature(FEATURE_DISPLAY_MODES)) {
                 result.add(KEY_LIVE_DISPLAY_COLOR_PROFILE);

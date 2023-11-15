@@ -1,23 +1,11 @@
 /*
- * Copyright (C) 2016 The CyanogenMod Project
- *               2017-2022 The LineageOS Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-FileCopyrightText: 2016 The CyanogenMod Project
+ * SPDX-FileCopyrightText: 2017-2023 The LineageOS Project
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package org.lineageos.lineageparts.hardware;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.UserHandle;
@@ -40,7 +28,6 @@ public class DisplayRotation extends SettingsPreferenceFragment
     private static final String TAG = "DisplayRotation";
 
     public static final String KEY_ACCELEROMETER = "accelerometer";
-    private static final String KEY_LOCKSCREEN_ROTATION = "lockscreen_rotation";
     private static final String ROTATION_0_PREF = "display_rotation_0";
     private static final String ROTATION_90_PREF = "display_rotation_90";
     private static final String ROTATION_180_PREF = "display_rotation_180";
@@ -99,7 +86,7 @@ public class DisplayRotation extends SettingsPreferenceFragment
     }
 
     private void updateAccelerometerRotationSwitch() {
-        mAccelerometer.setChecked(!RotationPolicy.isRotationLocked(getActivity()));
+        mAccelerometer.setChecked(!RotationPolicy.isRotationLocked(requireActivity()));
     }
 
     private int getRotationBitmask() {
@@ -130,7 +117,7 @@ public class DisplayRotation extends SettingsPreferenceFragment
                 mode |= ROTATION_0_MODE;
                 mRotation0Pref.setChecked(true);
             }
-            Settings.System.putIntForUser(getActivity().getContentResolver(),
+            Settings.System.putIntForUser(requireActivity().getContentResolver(),
                     "accelerometer_rotation_angles", mode, UserHandle.USER_CURRENT);
             return true;
         }
@@ -140,7 +127,8 @@ public class DisplayRotation extends SettingsPreferenceFragment
 
     @Override
     public void onSwitchChanged(Switch switchView, boolean isChecked) {
-        RotationPolicy.setRotationLockForAccessibility(getActivity(), !mAccelerometer.isChecked());
+        RotationPolicy.setRotationLockForAccessibility(requireActivity(),
+                !mAccelerometer.isChecked());
     }
 
     public static final SummaryProvider SUMMARY_PROVIDER = (context, key) -> {

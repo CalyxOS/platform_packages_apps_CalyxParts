@@ -1,18 +1,7 @@
 /*
- * Copyright (C) 2016 The CyanogenMod project
- *               2017-2023 The LineageOS Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-FileCopyrightText: 2016 The CyanogenMod project
+ * SPDX-FileCopyrightText: 2017-2023 The LineageOS Project
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package org.lineageos.lineageparts.gestures;
@@ -272,8 +261,7 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     private void launchBrowser() {
-        mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
-        mPowerManager.wakeUp(SystemClock.uptimeMillis(), GESTURE_WAKEUP_REASON);
+        performWakeUp();
         final Intent intent = getLaunchableIntent(
                 new Intent(Intent.ACTION_VIEW, Uri.parse("http:")));
         startActivitySafely(intent);
@@ -281,16 +269,14 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     private void launchDialer() {
-        mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
-        mPowerManager.wakeUp(SystemClock.uptimeMillis(), GESTURE_WAKEUP_REASON);
+        performWakeUp();
         final Intent intent = new Intent(Intent.ACTION_DIAL, null);
         startActivitySafely(intent);
         doHapticFeedback();
     }
 
     private void launchEmail() {
-        mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
-        mPowerManager.wakeUp(SystemClock.uptimeMillis(), GESTURE_WAKEUP_REASON);
+        performWakeUp();
         final Intent intent = getLaunchableIntent(
                 new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:")));
         startActivitySafely(intent);
@@ -298,12 +284,17 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     private void launchMessages() {
-        mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
-        mPowerManager.wakeUp(SystemClock.uptimeMillis(), GESTURE_WAKEUP_REASON);
+        performWakeUp();
         final Intent intent = getLaunchableIntent(
                 new Intent(Intent.ACTION_VIEW, Uri.parse("sms:")));
         startActivitySafely(intent);
         doHapticFeedback();
+    }
+
+    private void performWakeUp() {
+        mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
+        mPowerManager.wakeUp(SystemClock.uptimeMillis(), PowerManager.WAKE_REASON_GESTURE,
+                GESTURE_WAKEUP_REASON);
     }
 
     private void toggleFlashlight() {
@@ -423,7 +414,8 @@ public class KeyHandler implements DeviceKeyHandler {
 
     private Intent getLaunchableIntent(Intent intent) {
         PackageManager pm = mContext.getPackageManager();
-        List<ResolveInfo> resInfo = pm.queryIntentActivities(intent, 0);
+        List<ResolveInfo> resInfo = pm.queryIntentActivities(intent,
+                PackageManager.ResolveInfoFlags.of(0));
         if (resInfo.isEmpty()) {
             return null;
         }

@@ -1,17 +1,6 @@
 /*
- * Copyright (C) 2018-2022 The LineageOS Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-FileCopyrightText: 2018-2023 The LineageOS Project
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package org.lineageos.lineageparts.trust;
@@ -201,7 +190,7 @@ public class TrustPreferences extends SettingsPreferenceFragment {
     }
 
     private boolean showInfo(int text) {
-        new AlertDialog.Builder(getContext())
+        new AlertDialog.Builder(requireContext())
             .setMessage(text)
             .show();
         return true;
@@ -210,23 +199,23 @@ public class TrustPreferences extends SettingsPreferenceFragment {
     private void updateSmsSecuritySummary(int selection) {
         String value = String.valueOf(selection);
         String message = selection > 0
-                ? getContext().getString(R.string.sms_security_check_limit_summary, value)
-                : getContext().getString(R.string.sms_security_check_limit_summary_none);
+                ? requireContext().getString(R.string.sms_security_check_limit_summary, value)
+                : requireContext().getString(R.string.sms_security_check_limit_summary_none);
         mSmsLimitPref.setSummary(message);
     }
 
     private boolean onSmsLimitChanged(Integer value) {
-        Settings.Global.putInt(getContext().getContentResolver(),
+        Settings.Global.putInt(requireContext().getContentResolver(),
                 Settings.Global.SMS_OUTGOING_CHECK_MAX_COUNT, value);
         updateSmsSecuritySummary(value);
         return true;
     }
 
     private boolean onWarningChanged(Boolean value, int feature) {
-        int original = LineageSettings.Secure.getInt(getContext().getContentResolver(),
+        int original = LineageSettings.Secure.getInt(requireContext().getContentResolver(),
                 LineageSettings.Secure.TRUST_WARNINGS, TrustInterface.TRUST_WARN_MAX_VALUE);
         int newValue = value ? (original | feature) : (original & ~feature);
-        boolean success = LineageSettings.Secure.putInt(getContext().getContentResolver(),
+        boolean success = LineageSettings.Secure.putInt(requireContext().getContentResolver(),
                 LineageSettings.Secure.TRUST_WARNINGS,
                 newValue & TrustInterface.TRUST_WARN_MAX_VALUE);
         if (success && !value) {

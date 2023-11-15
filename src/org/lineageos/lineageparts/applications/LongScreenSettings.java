@@ -1,17 +1,6 @@
 /*
- * Copyright (C) 2018-2022 The LineageOS Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-FileCopyrightText: 2018-2023 The LineageOS Project
+ * SPDX-License-Identifier: Apache-2.0
  */
 package org.lineageos.lineageparts.applications;
 
@@ -33,6 +22,8 @@ import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.android.settingslib.applications.ApplicationsState;
 
@@ -58,28 +49,23 @@ public class LongScreenSettings extends SettingsPreferenceFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mApplicationsState = ApplicationsState.getInstance(getActivity().getApplication());
+        mApplicationsState = ApplicationsState.getInstance(requireActivity().getApplication());
         mSession = mApplicationsState.newSession(this);
         mSession.onResume();
-        mActivityFilter = new ActivityFilter(getActivity().getPackageManager());
+        mActivityFilter = new ActivityFilter(requireActivity().getPackageManager());
         mAllPackagesAdapter = new AllPackagesAdapter(getActivity());
 
         mLongScreen = new LongScreen(getContext());
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.long_screen_layout, container, false);
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         ListView userListView = view.findViewById(R.id.user_list_view);
@@ -137,8 +123,8 @@ public class LongScreenSettings extends SettingsPreferenceFragment
     public void onRunningStateChanged(boolean running) {}
 
     private void handleAppEntries(List<ApplicationsState.AppEntry> entries) {
-        final ArrayList<String> sections = new ArrayList<String>();
-        final ArrayList<Integer> positions = new ArrayList<Integer>();
+        final ArrayList<String> sections = new ArrayList<>();
+        final ArrayList<Integer> positions = new ArrayList<>();
         final PackageManager pm = getPackageManager();
         String lastSectionIndex = null;
         int offset = 0;
@@ -315,7 +301,8 @@ public class LongScreenSettings extends SettingsPreferenceFragment
         public void updateLauncherInfoList() {
             Intent i = new Intent(Intent.ACTION_MAIN);
             i.addCategory(Intent.CATEGORY_LAUNCHER);
-            List<ResolveInfo> resolveInfoList = mPackageManager.queryIntentActivities(i, 0);
+            List<ResolveInfo> resolveInfoList = mPackageManager.queryIntentActivities(i,
+                    PackageManager.ResolveInfoFlags.of(0));
 
             synchronized (mLauncherResolveInfoList) {
                 mLauncherResolveInfoList.clear();

@@ -5,7 +5,7 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="lineageparts_title">LineageOS - Beállítások</string>
+    <string name="lineageparts_title">CalyxOS - Beállítások</string>
     <string name="loading">Betöltés\u2026</string>
     <string name="dlg_ok">OK</string>
     <string name="cancel">Mégse</string>

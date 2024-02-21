@@ -5,7 +5,7 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="lineageparts_title">Nastavitve LineageOS</string>
+    <string name="lineageparts_title">Nastavitve CalyxOS</string>
     <string name="loading">Nalaganje \u2026</string>
     <string name="dlg_ok">V redu</string>
     <string name="cancel">Prekliči</string>

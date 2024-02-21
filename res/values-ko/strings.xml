@@ -5,7 +5,7 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="lineageparts_title">LineageOS 설정</string>
+    <string name="lineageparts_title">CalyxOS 설정</string>
     <string name="loading">불러오는 중\u2026</string>
     <string name="dlg_ok">확인</string>
     <string name="cancel">취소</string>

@@ -150,6 +150,7 @@
         <activity android:name=".gestures.KeyHandler" />
 
         <!-- Rotation settings -->
+        <!--
         <activity-alias
             android:name=".hardware.DisplayRotation"
             android:exported="true"
@@ -159,6 +160,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity-alias>
+        -->
 
         <!-- Status bar settings (System category) -->
         <activity-alias

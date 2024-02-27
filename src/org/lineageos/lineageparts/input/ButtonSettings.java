@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2016 The CyanogenMod project
- * SPDX-FileCopyrightText: 2017-2023 The LineageOS project
+ * SPDX-FileCopyrightText: 2017-2024 The LineageOS project
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -453,6 +453,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
             if (!DeviceUtils.deviceSupportsFlashLight(context)) {
                 result.add(KEY_TORCH_LONG_PRESS_POWER_GESTURE);
                 result.add(KEY_TORCH_LONG_PRESS_POWER_TIMEOUT);
+            }
+
+            if (!isLargeScreen(context) || !hasNavigationBar()) {
+                result.add(KEY_ENABLE_TASKBAR);
             }
 
             if (hasNavigationBar()) {

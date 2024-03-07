@@ -57,21 +57,27 @@ public class ButtonSettings extends SettingsPreferenceFragment
             "torch_long_press_power_gesture";
     private static final String KEY_TORCH_LONG_PRESS_POWER_TIMEOUT =
             "torch_long_press_power_timeout";
+    /*
     private static final String KEY_NAV_BAR_INVERSE = "sysui_nav_bar_inverse";
     private static final String KEY_ENABLE_TASKBAR = "enable_taskbar";
+    */
 
     private static final String CATEGORY_POWER = "power_key";
     private static final String CATEGORY_VOLUME = "volume_keys";
+    /*
     private static final String CATEGORY_NAVBAR = "navigation_bar_category";
+    */
 
     private ListPreference mVolumeKeyCursorControl;
     private SwitchPreferenceCompat mNavigationArrowKeys;
     private SwitchPreferenceCompat mPowerEndCall;
     private ListPreference mTorchLongPressPowerTimeout;
+    /*
     private SwitchPreferenceCompat mNavBarInverse;
     private SwitchPreferenceCompat mEnableTaskbar;
 
     private PreferenceCategory mNavigationPreferencesCat;
+    */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,10 +105,12 @@ public class ButtonSettings extends SettingsPreferenceFragment
         mTorchLongPressPowerTimeout = initList(KEY_TORCH_LONG_PRESS_POWER_TIMEOUT,
                 torchLongPressPowerTimeout);
 
+        /*
         mNavigationPreferencesCat = findPreference(CATEGORY_NAVBAR);
 
         // Navigation bar arrow keys while typing
         mNavigationArrowKeys = findPreference(KEY_NAVIGATION_ARROW_KEYS);
+        */
 
         if (hasPowerKey) {
             if (!TelephonyUtils.isVoiceCapable(requireActivity())) {
@@ -132,6 +140,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
             prefScreen.removePreference(volumeCategory);
         }
 
+        /*
         mNavBarInverse = findPreference(KEY_NAV_BAR_INVERSE);
 
         mEnableTaskbar = findPreference(KEY_ENABLE_TASKBAR);
@@ -146,6 +155,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 toggleTaskBarDependencies(mEnableTaskbar.isChecked());
             }
         }
+        */
     }
 
     @Override
@@ -200,6 +210,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
             handleListChange(mTorchLongPressPowerTimeout, newValue,
                     LineageSettings.System.TORCH_LONG_PRESS_POWER_TIMEOUT);
             return true;
+        /*
         } else if (preference == mEnableTaskbar) {
             toggleTaskBarDependencies((Boolean) newValue);
             if ((Boolean) newValue && is2ButtonNavigationEnabled(requireContext())) {
@@ -209,10 +220,12 @@ public class ButtonSettings extends SettingsPreferenceFragment
             LineageSettings.System.putInt(getContentResolver(),
                     LineageSettings.System.ENABLE_TASKBAR, ((Boolean) newValue) ? 1 : 0);
             return true;
+        */
         }
         return false;
     }
 
+    /*
     private static boolean is2ButtonNavigationEnabled(Context context) {
         return NAV_BAR_MODE_2BUTTON == context.getResources().getInteger(
                 com.android.internal.R.integer.config_navBarInteractionMode);
@@ -238,6 +251,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
             pref.setEnabled(enabled);
         }
     }
+    */
 
     private static boolean hasNavigationBar() {
         boolean hasNavigationBar = false;
@@ -291,9 +305,11 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 result.add(KEY_TORCH_LONG_PRESS_POWER_TIMEOUT);
             }
 
+            /*
             if (!isLargeScreen(context) || !hasNavigationBar()) {
                 result.add(KEY_ENABLE_TASKBAR);
             }
+            */
 
             if (hasNavigationBar()) {
                 if (DeviceUtils.isEdgeToEdgeEnabled(context)) {

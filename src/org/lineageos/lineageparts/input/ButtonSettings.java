@@ -33,7 +33,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
-import androidx.preference.SwitchPreference;
+import androidx.preference.SwitchPreferenceCompat;
 
 import static com.android.systemui.shared.recents.utilities.Utilities.isLargeScreen;
 
@@ -93,17 +93,17 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
     /*
     private ListPreference mVolumeKeyCursorControl;
-    private SwitchPreference mNavigationArrowKeys;
+    private SwitchPreferenceCompat mNavigationArrowKeys;
     private ListPreference mNavigationBackLongPressAction;
     private ListPreference mNavigationHomeLongPressAction;
     private ListPreference mNavigationHomeDoubleTapAction;
     private ListPreference mNavigationAppSwitchLongPressAction;
-    private SwitchPreference mPowerEndCall;
+    private SwitchPreferenceCompat mPowerEndCall;
     */
     private ListPreference mTorchLongPressPowerTimeout;
     /*
-    private SwitchPreference mNavBarInverse;
-    private SwitchPreference mEnableTaskbar;
+    private SwitchPreferenceCompat mNavBarInverse;
+    private SwitchPreferenceCompat mEnableTaskbar;
 
     private PreferenceCategory mNavigationPreferencesCat;
     */
@@ -139,7 +139,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
         */
 
         // Long press power while display is off to activate torchlight
-        SwitchPreference torchLongPressPowerGesture =
+        SwitchPreferenceCompat torchLongPressPowerGesture =
                 findPreference(KEY_TORCH_LONG_PRESS_POWER_GESTURE);
         final int torchLongPressPowerTimeout = LineageSettings.System.getInt(resolver,
                 LineageSettings.System.TORCH_LONG_PRESS_POWER_TIMEOUT, 0);
@@ -227,8 +227,8 @@ public class ButtonSettings extends SettingsPreferenceFragment
             prefScreen.removePreference(volumeCategory);
         }
 
-        SwitchPreference volumeWakeScreen = findPreference(KEY_VOLUME_WAKE_SCREEN);
-        SwitchPreference volumeMusicControls = findPreference(KEY_VOLUME_MUSIC_CONTROLS);
+        SwitchPreferenceCompat volumeWakeScreen = findPreference(KEY_VOLUME_WAKE_SCREEN);
+        SwitchPreferenceCompat volumeMusicControls = findPreference(KEY_VOLUME_MUSIC_CONTROLS);
 
         if (volumeWakeScreen != null) {
             if (volumeMusicControls != null) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
      SPDX-FileCopyrightText: 2016 The CyanogenMod Project
-     SPDX-FileCopyrightText: 2017-2022 The LineageOS Project
+     SPDX-FileCopyrightText: 2017-2024 The LineageOS Project
      SPDX-License-Identifier: Apache-2.0
 -->
 
@@ -15,7 +15,7 @@
         android:title="@string/navigation_bar_category" >
 
         <!--
-        <SwitchPreference
+        <SwitchPreferenceCompat
                 android:key="enable_taskbar"
                 android:title="@string/navigation_bar_enable_taskbar_title" />
         -->
@@ -78,7 +78,7 @@
             android:title="@string/power_menu_title"
             android:fragment="org.lineageos.lineageparts.input.PowerMenuActions" />
 
-        <SwitchPreference
+        <SwitchPreferenceCompat
             android:key="power_end_call"
             android:title="@string/power_end_call_title"
             android:summary="@string/power_end_call_summary"

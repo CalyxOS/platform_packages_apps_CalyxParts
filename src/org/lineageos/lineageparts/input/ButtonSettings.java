@@ -80,20 +80,24 @@ public class ButtonSettings extends SettingsPreferenceFragment
     /*
     private static final String KEY_CLICK_PARTIAL_SCREENSHOT =
             "click_partial_screenshot";
+    */
     private static final String KEY_NAV_BAR_INVERSE = "sysui_nav_bar_inverse";
     private static final String KEY_ENABLE_TASKBAR = "enable_taskbar";
-    */
 
     private static final String CATEGORY_POWER = "power_key";
     /*
     private static final String CATEGORY_VOLUME = "volume_keys";
+    */
     private static final String CATEGORY_NAVBAR = "navigation_bar_category";
+    /*
     private static final String CATEGORY_EXTRAS = "extras_category";
     */
 
     /*
     private ListPreference mVolumeKeyCursorControl;
+    */
     private SwitchPreferenceCompat mNavigationArrowKeys;
+    /*
     private ListPreference mNavigationBackLongPressAction;
     private ListPreference mNavigationHomeLongPressAction;
     private ListPreference mNavigationHomeDoubleTapAction;
@@ -101,12 +105,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private SwitchPreferenceCompat mPowerEndCall;
     */
     private ListPreference mTorchLongPressPowerTimeout;
-    /*
     private SwitchPreferenceCompat mNavBarInverse;
     private SwitchPreferenceCompat mEnableTaskbar;
 
     private PreferenceCategory mNavigationPreferencesCat;
-    */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -146,9 +148,9 @@ public class ButtonSettings extends SettingsPreferenceFragment
         mTorchLongPressPowerTimeout = initList(KEY_TORCH_LONG_PRESS_POWER_TIMEOUT,
                 torchLongPressPowerTimeout);
 
-        /*
         mNavigationPreferencesCat = findPreference(CATEGORY_NAVBAR);
 
+        /*
         Action defaultBackLongPressAction = Action.fromIntSafe(res.getInteger(
                 org.lineageos.platform.internal.R.integer.config_longPressOnBackBehavior));
         Action defaultHomeLongPressAction = Action.fromIntSafe(res.getInteger(
@@ -169,10 +171,12 @@ public class ButtonSettings extends SettingsPreferenceFragment
         Action appSwitchLongPressAction = Action.fromSettings(resolver,
                 LineageSettings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION,
                 defaultAppSwitchLongPressAction);
+        */
 
         // Navigation bar arrow keys while typing
         mNavigationArrowKeys = findPreference(KEY_NAVIGATION_ARROW_KEYS);
 
+        /*
         // Navigation bar back long press
         mNavigationBackLongPressAction = initList(KEY_NAVIGATION_BACK_LONG_PRESS,
                 backLongPressAction);
@@ -236,6 +240,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 volumeWakeScreen.setDisableDependentsState(true);
             }
         }
+        */
 
         mNavBarInverse = findPreference(KEY_NAV_BAR_INVERSE);
 
@@ -252,6 +257,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
             }
         }
 
+        /*
         List<Integer> unsupportedValues = new ArrayList<>();
         List<String> entries = new ArrayList<>(
                 Arrays.asList(res.getStringArray(R.array.hardware_keys_action_entries)));
@@ -344,7 +350,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
             handleListChange(mTorchLongPressPowerTimeout, newValue,
                     LineageSettings.System.TORCH_LONG_PRESS_POWER_TIMEOUT);
             return true;
-        /*
         } else if (preference == mEnableTaskbar) {
             toggleTaskBarDependencies((Boolean) newValue);
             if ((Boolean) newValue && is2ButtonNavigationEnabled(requireContext())) {
@@ -354,12 +359,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
             LineageSettings.System.putInt(getContentResolver(),
                     LineageSettings.System.ENABLE_TASKBAR, ((Boolean) newValue) ? 1 : 0);
             return true;
-        */
         }
         return false;
     }
 
-    /*
     private static boolean is2ButtonNavigationEnabled(Context context) {
         return NAV_BAR_MODE_2BUTTON == context.getResources().getInteger(
                 com.android.internal.R.integer.config_navBarInteractionMode);
@@ -378,10 +381,12 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private void toggleTaskBarDependencies(boolean enabled) {
         enablePreference(mNavigationArrowKeys, !enabled);
         enablePreference(mNavBarInverse, !enabled);
+        /*
         enablePreference(mNavigationBackLongPressAction, !enabled);
         enablePreference(mNavigationHomeLongPressAction, !enabled);
         enablePreference(mNavigationHomeDoubleTapAction, !enabled);
         enablePreference(mNavigationAppSwitchLongPressAction, !enabled);
+        */
     }
 
     private void enablePreference(Preference pref, boolean enabled) {
@@ -389,7 +394,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
             pref.setEnabled(enabled);
         }
     }
-    */
 
     private static boolean hasNavigationBar() {
         boolean hasNavigationBar = false;
@@ -451,11 +455,9 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 result.add(KEY_TORCH_LONG_PRESS_POWER_TIMEOUT);
             }
 
-            /*
             if (!isLargeScreen(context) || !hasNavigationBar()) {
                 result.add(KEY_ENABLE_TASKBAR);
             }
-            */
 
             if (hasNavigationBar()) {
                 if (DeviceUtils.isEdgeToEdgeEnabled(context)) {

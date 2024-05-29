@@ -21,12 +21,6 @@
     <dimen name="pager_tabs_title_padding">16dp</dimen>
     <dimen name="pager_tabs_selected_indicator_height">3dp</dimen>
 
-    <!-- Trust onBoarding -->
-    <dimen name="trust_logo_vertical_margin">48dp</dimen>
-    <dimen name="trust_logo_horizontal_margin">40dp</dimen>
-    <dimen name="trust_logo_height">-2px</dimen>
-    <dimen name="trust_logo_width">-1px</dimen>
-
     <dimen name="package_list_padding_top">16dp</dimen>
 
     <dimen name="color_mode_preview_height">320dp</dimen>

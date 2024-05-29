@@ -35,6 +35,7 @@
 
     </PreferenceCategory>
 
+    <!--
     <PreferenceCategory
         android:title="@string/status_bar_brightness_category">
 
@@ -52,5 +53,6 @@
             lineage:requiresConfig="@*android:bool/config_automatic_brightness_available"
             android:defaultValue="true" />
     </PreferenceCategory>
+    -->
 
 </PreferenceScreen>

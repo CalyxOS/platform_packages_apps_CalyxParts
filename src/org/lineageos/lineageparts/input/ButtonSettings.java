@@ -58,10 +58,13 @@ public class ButtonSettings extends SettingsPreferenceFragment
         implements Preference.OnPreferenceChangeListener, Searchable {
     private static final String TAG = "SystemSettings";
 
+    /*
     private static final String KEY_VOLUME_KEY_CURSOR_CONTROL = "volume_key_cursor_control";
     private static final String KEY_VOLUME_WAKE_SCREEN = "volume_wake_screen";
     private static final String KEY_VOLUME_ANSWER_CALL = "volume_answer_call";
+    */
     private static final String KEY_NAVIGATION_ARROW_KEYS = "navigation_bar_menu_arrow_keys";
+    /*
     private static final String KEY_NAVIGATION_BACK_LONG_PRESS = "navigation_back_long_press";
     private static final String KEY_NAVIGATION_HOME_LONG_PRESS = "navigation_home_long_press";
     private static final String KEY_NAVIGATION_HOME_DOUBLE_TAP = "navigation_home_double_tap";
@@ -69,27 +72,38 @@ public class ButtonSettings extends SettingsPreferenceFragment
             "navigation_app_switch_long_press";
     private static final String KEY_POWER_END_CALL = "power_end_call";
     private static final String KEY_VOLUME_MUSIC_CONTROLS = "volbtn_music_controls";
+    */
     private static final String KEY_TORCH_LONG_PRESS_POWER_GESTURE =
             "torch_long_press_power_gesture";
     private static final String KEY_TORCH_LONG_PRESS_POWER_TIMEOUT =
             "torch_long_press_power_timeout";
+    /*
     private static final String KEY_CLICK_PARTIAL_SCREENSHOT =
             "click_partial_screenshot";
+    */
     private static final String KEY_NAV_BAR_INVERSE = "sysui_nav_bar_inverse";
     private static final String KEY_ENABLE_TASKBAR = "enable_taskbar";
 
     private static final String CATEGORY_POWER = "power_key";
+    /*
     private static final String CATEGORY_VOLUME = "volume_keys";
+    */
     private static final String CATEGORY_NAVBAR = "navigation_bar_category";
+    /*
     private static final String CATEGORY_EXTRAS = "extras_category";
+    */
 
+    /*
     private ListPreference mVolumeKeyCursorControl;
+    */
     private SwitchPreferenceCompat mNavigationArrowKeys;
+    /*
     private ListPreference mNavigationBackLongPressAction;
     private ListPreference mNavigationHomeLongPressAction;
     private ListPreference mNavigationHomeDoubleTapAction;
     private ListPreference mNavigationAppSwitchLongPressAction;
     private SwitchPreferenceCompat mPowerEndCall;
+    */
     private ListPreference mTorchLongPressPowerTimeout;
     private SwitchPreferenceCompat mNavBarInverse;
     private SwitchPreferenceCompat mEnableTaskbar;
@@ -102,21 +116,29 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
         addPreferencesFromResource(R.xml.button_settings);
 
+        /*
         final Resources res = getResources();
+        */
         final ContentResolver resolver = requireActivity().getContentResolver();
         final PreferenceScreen prefScreen = getPreferenceScreen();
 
         final boolean hasPowerKey = DeviceUtils.hasPowerKey();
+        /*
         final boolean hasVolumeKeys = DeviceUtils.hasVolumeKeys(getActivity());
 
         final boolean showVolumeWake = DeviceUtils.canWakeUsingVolumeKeys(getActivity());
+        */
 
         final PreferenceCategory powerCategory = prefScreen.findPreference(CATEGORY_POWER);
+        /*
         final PreferenceCategory volumeCategory = prefScreen.findPreference(CATEGORY_VOLUME);
         final PreferenceCategory extrasCategory = prefScreen.findPreference(CATEGORY_EXTRAS);
+        */
 
+        /*
         // Power button ends calls.
         mPowerEndCall = findPreference(KEY_POWER_END_CALL);
+        */
 
         // Long press power while display is off to activate torchlight
         SwitchPreferenceCompat torchLongPressPowerGesture =
@@ -128,6 +150,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
         mNavigationPreferencesCat = findPreference(CATEGORY_NAVBAR);
 
+        /*
         Action defaultBackLongPressAction = Action.fromIntSafe(res.getInteger(
                 org.lineageos.platform.internal.R.integer.config_longPressOnBackBehavior));
         Action defaultHomeLongPressAction = Action.fromIntSafe(res.getInteger(
@@ -148,10 +171,12 @@ public class ButtonSettings extends SettingsPreferenceFragment
         Action appSwitchLongPressAction = Action.fromSettings(resolver,
                 LineageSettings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION,
                 defaultAppSwitchLongPressAction);
+        */
 
         // Navigation bar arrow keys while typing
         mNavigationArrowKeys = findPreference(KEY_NAVIGATION_ARROW_KEYS);
 
+        /*
         // Navigation bar back long press
         mNavigationBackLongPressAction = initList(KEY_NAVIGATION_BACK_LONG_PRESS,
                 backLongPressAction);
@@ -167,12 +192,15 @@ public class ButtonSettings extends SettingsPreferenceFragment
         // Navigation bar app switch long press
         mNavigationAppSwitchLongPressAction = initList(KEY_NAVIGATION_APP_SWITCH_LONG_PRESS,
                 appSwitchLongPressAction);
+        */
 
         if (hasPowerKey) {
+            /*
             if (!TelephonyUtils.isVoiceCapable(requireActivity())) {
                 powerCategory.removePreference(mPowerEndCall);
                 mPowerEndCall = null;
             }
+            */
             if (!DeviceUtils.deviceSupportsFlashLight(requireActivity())) {
                 powerCategory.removePreference(torchLongPressPowerGesture);
                 powerCategory.removePreference(mTorchLongPressPowerTimeout);
@@ -182,6 +210,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
             prefScreen.removePreference(powerCategory);
         }
 
+        /*
         if (hasVolumeKeys) {
             if (!showVolumeWake) {
                 volumeCategory.removePreference(findPreference(KEY_VOLUME_WAKE_SCREEN));
@@ -211,6 +240,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 volumeWakeScreen.setDisableDependentsState(true);
             }
         }
+        */
 
         mNavBarInverse = findPreference(KEY_NAV_BAR_INVERSE);
 
@@ -227,6 +257,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
             }
         }
 
+        /*
         List<Integer> unsupportedValues = new ArrayList<>();
         List<String> entries = new ArrayList<>(
                 Arrays.asList(res.getStringArray(R.array.hardware_keys_action_entries)));
@@ -257,8 +288,10 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
         mNavigationAppSwitchLongPressAction.setEntries(actionEntries);
         mNavigationAppSwitchLongPressAction.setEntryValues(actionValues);
+        */
     }
 
+    /*
     @Override
     public void onResume() {
         super.onResume();
@@ -273,6 +306,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
             mPowerEndCall.setChecked(powerButtonEndsCall);
         }
     }
+    */
 
     private ListPreference initList(String key, Action value) {
         return initList(key, value.ordinal());
@@ -294,20 +328,25 @@ public class ButtonSettings extends SettingsPreferenceFragment
         LineageSettings.System.putInt(getContentResolver(), setting, Integer.parseInt(value));
     }
 
+    /*
     private void handleSystemListChange(ListPreference pref, Object newValue, String setting) {
         String value = (String) newValue;
         int index = pref.findIndexOfValue(value);
         pref.setSummary(pref.getEntries()[index]);
         Settings.System.putInt(getContentResolver(), setting, Integer.parseInt(value));
     }
+    */
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        /*
         if (preference == mVolumeKeyCursorControl) {
             handleSystemListChange(mVolumeKeyCursorControl, newValue,
                     Settings.System.VOLUME_KEY_CURSOR_CONTROL);
             return true;
-        } else if (preference == mTorchLongPressPowerTimeout) {
+        } else
+        */
+        if (preference == mTorchLongPressPowerTimeout) {
             handleListChange(mTorchLongPressPowerTimeout, newValue,
                     LineageSettings.System.TORCH_LONG_PRESS_POWER_TIMEOUT);
             return true;
@@ -342,10 +381,12 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private void toggleTaskBarDependencies(boolean enabled) {
         enablePreference(mNavigationArrowKeys, !enabled);
         enablePreference(mNavBarInverse, !enabled);
+        /*
         enablePreference(mNavigationBackLongPressAction, !enabled);
         enablePreference(mNavigationHomeLongPressAction, !enabled);
         enablePreference(mNavigationHomeDoubleTapAction, !enabled);
         enablePreference(mNavigationAppSwitchLongPressAction, !enabled);
+        */
     }
 
     private void enablePreference(Preference pref, boolean enabled) {
@@ -365,6 +406,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
         return hasNavigationBar;
     }
 
+    /*
     @Override
     public boolean onPreferenceTreeClick(Preference preference) {
         if (preference == mPowerEndCall) {
@@ -381,6 +423,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
                         ? Settings.Secure.INCALL_POWER_BUTTON_BEHAVIOR_HANGUP
                         : Settings.Secure.INCALL_POWER_BUTTON_BEHAVIOR_SCREEN_OFF));
     }
+    */
 
     public static final Searchable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
             new BaseSearchIndexProvider() {
@@ -389,6 +432,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
         public Set<String> getNonIndexableKeys(Context context) {
             final Set<String> result = new ArraySet<>();
 
+            /*
             if (!TelephonyUtils.isVoiceCapable(context)) {
                 result.add(KEY_POWER_END_CALL);
                 result.add(KEY_VOLUME_ANSWER_CALL);
@@ -404,6 +448,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
             } else if (!DeviceUtils.canWakeUsingVolumeKeys(context)) {
                 result.add(KEY_VOLUME_WAKE_SCREEN);
             }
+            */
 
             if (!DeviceUtils.deviceSupportsFlashLight(context)) {
                 result.add(KEY_TORCH_LONG_PRESS_POWER_GESTURE);
@@ -417,11 +462,13 @@ public class ButtonSettings extends SettingsPreferenceFragment
             if (hasNavigationBar()) {
                 if (DeviceUtils.isEdgeToEdgeEnabled(context)) {
                     result.add(KEY_NAVIGATION_ARROW_KEYS);
+                    /*
                     result.add(KEY_NAVIGATION_HOME_LONG_PRESS);
                     result.add(KEY_NAVIGATION_HOME_DOUBLE_TAP);
                     result.add(KEY_NAVIGATION_APP_SWITCH_LONG_PRESS);
                 } else if (DeviceUtils.isSwipeUpEnabled(context)) {
                     result.add(KEY_NAVIGATION_APP_SWITCH_LONG_PRESS);
+                    */
                 }
             }
             return result;

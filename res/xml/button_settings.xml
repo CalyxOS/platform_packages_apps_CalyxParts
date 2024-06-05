@@ -30,7 +30,6 @@
                 android:summary="@string/navigation_bar_invert_layout_summary"
                 android:defaultValue="false" />
 
-        <!--
         <ListPreference
             android:key="navigation_back_long_press"
             android:dialogTitle="@string/navigation_bar_back_long_press_title"
@@ -62,7 +61,6 @@
             android:entries="@array/hardware_keys_action_entries"
             android:entryValues="@array/hardware_keys_action_values"
             android:persistent="false" />
-        -->
 
     </PreferenceCategory>
 
@@ -70,7 +68,6 @@
         android:key="power_key"
         android:title="@string/hardware_keys_power_key_title" >
 
-        <!--
         <Preference
             android:key="power_menu"
             android:title="@string/power_menu_title"
@@ -81,7 +78,6 @@
             android:title="@string/power_end_call_title"
             android:summary="@string/power_end_call_summary"
             android:persistent="false"/>
-        -->
 
         <lineageos.preference.LineageSystemSettingSwitchPreference
             android:key="torch_long_press_power_gesture"
@@ -101,7 +97,6 @@
 
     </PreferenceCategory>
 
-    <!--
     <PreferenceCategory
         android:key="volume_keys"
         android:title="@string/hardware_keys_volume_keys_title" >
@@ -131,7 +126,6 @@
             android:entryValues="@array/volbtn_cursor_control_values"
             android:persistent="false" />
     </PreferenceCategory>
-    -->
 
     <PreferenceCategory
         android:key="extras_category"
@@ -145,13 +139,11 @@
                 android:action="org.lineageos.settings.device.ADDITIONAL_BUTTONS_SETTINGS" />
         </lineageos.preference.RemotePreference>
 
-        <!--
         <lineageos.preference.LineageSystemSettingSwitchPreference
             android:key="click_partial_screenshot"
             android:title="@string/click_partial_screenshot_title"
             android:summary="@string/click_partial_screenshot_summary"
             android:defaultValue="false" />
-        -->
 
     </PreferenceCategory>
 

@@ -414,13 +414,13 @@
     <string name="contributors_cloud_loading_message">Duke ngarkuar të dhënat e kontribuesve\u2026</string>
     <string name="contributors_cloud_failed_message">Të dhënat e kontribuesve nuk mund të ngarkohen</string>
     <string name="contributor_info_menu">Informacion rreth kontribuesit</string>
-    <string name="contributor_info_msg"><![CDATA[<b>Emri:</b> <xliff:g id="name">%1$s</xliff:g><br/><br/>
+    <string name="contributor_info_msg"><b>Emri:</b> <xliff:g id="name">%1$s</xliff:g><br/><br/>
                  <b>Nofka:</b> <xliff:g id="nick">%2$s</xliff:g><br/><br/>
-                 <b>Kryen:</b> <xliff:g id="commits">%3$s</xliff:g>]]></string>
+                 <b>Kryen:</b> <xliff:g id="commits">%3$s</xliff:g></string>
     <string name="contributions_info_menu">Informacion rreth kontribimeve</string>
-    <string name="contributions_info_msg"><![CDATA[<b>Kontribuesit total:</b> <xliff:g id="total_contributors">%1$s</xliff:g><br/><br/>
+    <string name="contributions_info_msg"><b>Kontribuesit total:</b> <xliff:g id="total_contributors">%1$s</xliff:g><br/><br/>
                  <b>Totali i angazhimeve:</b> <xliff:g id="total_commits">%2$s</xliff:g><br/><br/>
-                 <b>Përditësimet e fundit:</b> <xliff:g id="date">%3$s</xliff:g>]]></string>
+                 <b>Përditësimet e fundit:</b> <xliff:g id="date">%3$s</xliff:g></string>
     <string name="anonymous_statistics_title">Statistikat e LineageOS</string>
     <string name="anonymous_statistics_summary">Ndihmo në përmirësimin e LineageOS duke lejuar raportimin anonim të statistikave</string>
     <string name="anonymous_statistics_warning_title">Rreth nesh</string>
@@ -511,11 +511,11 @@
     <string name="trust_feature_security_patches_value_medium">Disa muaj e pa përditësuar</string>
     <string name="trust_feature_security_patches_value_old">E vjetërsuar</string>
     <string name="trust_feature_security_patches_explain">korrigjimet e sigurisë nxiren çdo muaj nga Google në bashkëpunim me prodhuesit e SoC për të trajtuar gabimet nga të cilat mund të shfrytëzohen nga programet keqadashëse për të shmangur kufizimet e sigurisë dhe shkaktojnë probleme të përhershme në paisjen tuaj. korrigjimet e nxjera nga Google zbatohen çdo muaj në të gjitha paisjet. Por korrigjimet tek kodet e patentuara mund të kryehen vetëm nga prodhuesi i telefonit tuaj. Për të qëndruar i sigurtë, sigurohuni që sistemi juaj LineageOS është gjithmonë i përditësuar, dhe (nesë është e vlefshme) sigurohu që dhe imazhet e prodhuesit janë gjithmonë më të fundit dhe të sygjeruara nga LineageOS.</string>
-    <string name="trust_feature_encryption">Enkriptimi</string>
+    <string name="trust_feature_encryption">Shifrimi</string>
     <string name="trust_feature_encryption_value_enabled">E aktivizuar</string>
     <string name="trust_feature_encryption_value_nolock">Nevojitet një mbyllje e sigurtë e ekranit</string>
     <string name="trust_feature_encryption_value_disabled">E çaktivizuar</string>
-    <string name="trust_feature_encryption_explain">Kriptimi i paisjes shmang hyrjen tek të dhënat e tua kur telefoni nuk ndizet në sistemin e Android. Kjo është veçanërisht e rëndësishme nëse të vidhet telefoni, pasi ndalon të tjerët të të lexojnë mesazhet, kontaktet dhe informacione të tjera private pa fjalëkalimin.\n\nPër të patur një kriptim më efektiv ju duhet të vendosni një fjalëkalim për kyçje të sigurtë të ekranit.</string>
+    <string name="trust_feature_encryption_explain">Kriptimi i paisjes shmang hyrjen tek tëdhënat e tua kur telefoni nuk ndizet në sistemin e Android. Kjo është veçanërisht e rëndësishme nëse të vidhet telefoni, pasi ndalon të tjerët të të lexojnë mesazhet, kontaktet dhe informacione të tjera private pa fjalëkalimin.\nPër të patur një kriptim më efektiv ju duhet të vendosni një fjalëkalim për mbyllje të sigurtë të ekranit.</string>
     <string name="trust_category_tools">Privatësia</string>
     <string name="trust_notification_alerts_title">Njoftime mbi sigurinë</string>
     <string name="trust_warnings_alerts_intro">Ju mund të zgjidhni se për cilat probleme sigurie të njoftoheni. Për sigurinë tuaj, sygjerohet të aktivizohen të gjitha</string>

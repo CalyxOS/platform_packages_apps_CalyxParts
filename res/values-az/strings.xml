@@ -278,7 +278,7 @@
     <string name="profile_remove_dialog_message">%1$s profili çıxarılsın?</string>
     <string name="profile_populate_profile_from_state">Hazırkı cihaz ayarları istifadə edilərək profil konfiqurasiya edilsin?</string>
     <string name="profile_menu_fill_from_state">Hazırkı cihaz ayarlarını daxilə köçür</string>
-    <string name="profile_remove_current_profile">Hazırki profil silinə bilməz!</string>
+    <string name="profile_remove_current_profile">Hazırkı profil silinə bilməz!</string>
     <string name="profile_app_group_category_title">Bildirişləri yararsız et</string>
     <string name="profile_app_group_item_instructions">Qrupları əlavə et və ya çıxart</string>
     <string name="profile_app_group_item_instructions_summary">Bildiriş əlavə etmək və ya silmək, bu profilin tətbiq qruplarını yararsız edir</string>

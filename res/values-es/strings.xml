@@ -185,8 +185,7 @@
     <string name="home_answer_call_summary">Contestar llamadas entrantes presionando el botón de inicio</string>
     <string name="extras_title">Extras</string>
     <string name="additional_buttons_title">Botones adicionales</string>
-    <string name="click_partial_screenshot_title">Pulse para una captura de pantalla parcial</string>
-    <string name="click_partial_screenshot_summary">Pulse brevemente Bajar Volumen y Encender para tomar una captura de pantalla parcial</string>
+    <string name="click_partial_screenshot_title">Pulsa para una captura de pantalla parcial</string>
     <string name="button_backlight_title">Contraluz</string>
     <string name="button_backlight_enabled">Iluminar botones</string>
     <string name="button_backlight_only_when_pressed_title">Iluminar los botones únicamente cuando se presionan</string>

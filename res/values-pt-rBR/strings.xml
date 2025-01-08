@@ -343,11 +343,12 @@
     <string name="alarm_volume_title">Alarme</string>
     <string name="doze_title">Tela ambiente</string>
     <string name="status_bar_title">Barra de status</string>
+    <string name="status_bar_quick_qs_pulldown_title">Puxada rápida</string>
     <string name="status_bar_quick_qs_pulldown_summary">Puxar a borda do lado %1$s traz as Configurações Rápidas</string>
-    <string name="status_bar_quick_qs_pulldown_summary_left">Borda Esquerda</string>
+    <string name="status_bar_quick_qs_pulldown_summary_left">esquerdo</string>
     <string name="status_bar_quick_qs_pulldown_summary_right">direito</string>
     <string name="status_bar_quick_qs_pulldown_off">Desligado</string>
-    <string name="status_bar_quick_qs_pulldown_left">esquerdo</string>
+    <string name="status_bar_quick_qs_pulldown_left">Borda Esquerda</string>
     <string name="status_bar_quick_qs_pulldown_right">Borda Direita</string>
     <string name="status_bar_double_tap_to_sleep_title">Toque duplo para suspender</string>
     <string name="status_bar_double_tap_to_sleep_summary">Toque duas vezes na barra de status para desligar a tela</string>

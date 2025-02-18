@@ -35,6 +35,7 @@
     <string name="dialog_delete_message">An bhfuil fonn ort an mhír roghnaithe a bhaint?</string>
     <string name="brightness">Leibhéal gile</string>
     <string name="pulse_length_always_on">I gcónaí ar</string>
+    <string name="pulse_length_blink">Caoch</string>
     <string name="pulse_length_very_short">An-ghearr</string>
     <string name="pulse_length_short">Gearr</string>
     <string name="pulse_length_normal">Gnáth</string>

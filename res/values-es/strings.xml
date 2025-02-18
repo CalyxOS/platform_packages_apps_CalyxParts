@@ -35,6 +35,7 @@
     <string name="dialog_delete_message">¿Eliminar el elemento seleccionado?</string>
     <string name="brightness">Nivel de brillo</string>
     <string name="pulse_length_always_on">Siempre encendida</string>
+    <string name="pulse_length_blink">Parpadeo</string>
     <string name="pulse_length_very_short">Muy corta</string>
     <string name="pulse_length_short">Corta</string>
     <string name="pulse_length_normal">Normal</string>
@@ -273,7 +274,7 @@
     <string name="profile_selected">Perfil seleccionado: %1$s</string>
     <string name="profile_nfc_text">Escribir un perfil en una etiqueta NFC permite tocar la etiqueta para seleccionar el perfil. Si se pulsa una segunda vez, se seleccionará el perfil seleccionado previamente.</string>
     <string name="profile_unknown_nfc_tag">Perfil desconocido</string>
-    <string name="profile_add_nfc_text">Esta etiqueta NFC hace referencia a un perfil desconocido. Añadir esta etiqueta NFC a un perfil existente permitirá seleccionar el perfil en el futuro.</string>
+    <string name="profile_add_nfc_text">Esta etiqueta NFC hace referencia a un perfil desconocido. Añadir esta etiqueta NFC a un perfil existente permitirá seleccionarlo en el futuro.</string>
     <string name="profile_select">Seleccionar perfil</string>
     <string name="profile_remove_dialog_message">¿Quitar perfil %1$s?</string>
     <string name="profile_populate_profile_from_state">¿Configurar el perfil usando los ajustes actuales del dispositivo?</string>
@@ -304,7 +305,7 @@
     <string name="profile_volume_override_checkbox_label">Anular volumen</string>
     <string name="profile_profiles_manage">Perfiles</string>
     <string name="profile_profile_manage">Gestionar perfil</string>
-    <string name="profile_settings">Ajustes de perfil</string>
+    <string name="profile_settings">Ajustes del perfil</string>
     <string name="profile_trigger_connect">Al conectar</string>
     <string name="profile_trigger_disconnect">Al desconectar</string>
     <string name="profile_trigger_notrigger">Sin evento</string>
@@ -380,9 +381,9 @@
     <string name="status_bar_battery_percentage_text_next">Junto al icono</string>
     <string name="status_bar_brightness_category">Brillo</string>
     <string name="status_bar_brightness_slider_title">Barra de brillo</string>
-    <string name="status_bar_brightness_slider_summary">Ajuste el brillo desde los ajustes rápidos</string>
+    <string name="status_bar_brightness_slider_summary">Ajuste del brillo desde los ajustes rápidos</string>
     <string name="status_bar_brightness_slider_auto_title">Brillo automático</string>
-    <string name="status_bar_brightness_slider_auto_summary">Mostrar el interruptor de brillo automático al lado de la barra de brillo</string>
+    <string name="status_bar_brightness_slider_auto_summary">Mostrar el botón para el brillo adaptativo en la barra deslizante</string>
     <string name="status_bar_brightness_slider_show_never">No mostrar nunca</string>
     <string name="status_bar_brightness_slider_show_expanded">Mostrar al expandir</string>
     <string name="status_bar_brightness_slider_show_always">Mostrar siempre</string>
@@ -409,7 +410,7 @@
     <string name="network_traffic_show_units_summary">Mostrar/ocultar unidades de medida de tráfico en la barra de estado</string>
     <string name="network_traffic_disabled_clock">Tráfico de red desactivado debido a la posición del reloj</string>
     <string name="protected_apps_manager_title">Aplicaciones protegidas</string>
-    <string name="protected_apps_manager_summary">Gestionar que aplicaciones se ocultarán detrás de un bloqueo seguro</string>
+    <string name="protected_apps_manager_summary">Gestionar qué aplicaciones se ocultarán tras un bloqueo seguro</string>
     <string name="contributors_cloud_fragment_title">Colaboradores</string>
     <string name="contributors_cloud_loading_message">Cargando datos de colaboradores\u2026</string>
     <string name="contributors_cloud_failed_message">No se pueden cargar los datos de colaboradores</string>
@@ -433,9 +434,9 @@
     <string name="preview_device_title">Dispositivo</string>
     <string name="preview_version_title">Versión</string>
     <string name="preview_country_title">País</string>
-    <string name="preview_carrier_title">Operadora</string>
-    <string name="stats_collection_title">Recolección de estadísticas</string>
-    <string name="stats_collection_summary">Permite la recolección de métricas y estadísticas del dispositivo</string>
+    <string name="preview_carrier_title">Operador</string>
+    <string name="stats_collection_title">Recopilación de estadísticas</string>
+    <string name="stats_collection_summary">Permitir la recopilación de métricas de instalación y estadísticas del dispositivo</string>
     <string name="accelerometer_title">Girar pantalla automáticamente</string>
     <string name="display_rotation_title">Ajustes de rotación</string>
     <string name="display_rotation_enabled">Rotación automática activada</string>
@@ -455,7 +456,7 @@
     <string name="charging_sounds_summary">Reproducir un sonido al conectar o desconectar el cargador</string>
     <string name="power_notifications_vibrate_title">Vibración</string>
     <string name="charging_sounds_ringtone_silent">Silencio</string>
-    <string name="charging_sounds_notification_category_title">Sonidos de notificación</string>
+    <string name="charging_sounds_notification_category_title">Sonido de notificaciones</string>
     <string name="wired_charging_sounds_title">Carga por cable</string>
     <string name="wireless_charging_sounds_title">Carga inalámbrica</string>
     <string name="touchscreen_gesture_settings_title">Gestos en pantalla táctil</string>
@@ -481,10 +482,10 @@
     <string name="touchscreen_gesture_letter_v_title">Dibuje la letra «V»</string>
     <string name="touchscreen_gesture_letter_w_title">Dibujar la letra «W»</string>
     <string name="touchscreen_gesture_letter_z_title">Dibujar la letra «Z»</string>
-    <string name="touchscreen_gesture_swipe_up_stylus_title">Deslice hacia arriba con el lápiz</string>
-    <string name="touchscreen_gesture_swipe_down_stylus_title">Deslice hacia abajo con el lápiz</string>
-    <string name="touchscreen_gesture_swipe_left_stylus_title">Deslice hacia la izquierda con el lápiz</string>
-    <string name="touchscreen_gesture_swipe_right_stylus_title">Deslice hacia la derecha con el lápiz</string>
+    <string name="touchscreen_gesture_swipe_up_stylus_title">Deslizar hacia arriba con el lápiz</string>
+    <string name="touchscreen_gesture_swipe_down_stylus_title">Deslizar hacia abajo con el lápiz</string>
+    <string name="touchscreen_gesture_swipe_left_stylus_title">Deslizar hacia la izquierda con el lápiz</string>
+    <string name="touchscreen_gesture_swipe_right_stylus_title">Deslizar hacia la derecha con el lápiz</string>
     <string name="touchscreen_gesture_long_press_stylus_title">Pulsación prolongada con el lápiz</string>
     <string name="touchscreen_gesture_action_dialog_title">Acción del gesto</string>
     <string name="touchscreen_gesture_action_do_nothing">No hacer nada</string>
@@ -492,10 +493,10 @@
     <string name="touchscreen_gesture_action_camera">Abrir la cámara</string>
     <string name="touchscreen_gesture_action_browser">Abrir el navegador</string>
     <string name="touchscreen_gesture_action_dialer">Abrir el teléfono</string>
-    <string name="touchscreen_gesture_action_email">Ver sus correos electrónicos</string>
-    <string name="touchscreen_gesture_action_messages">Ver los mensajes</string>
+    <string name="touchscreen_gesture_action_email">Ver tus correos electrónicos</string>
+    <string name="touchscreen_gesture_action_messages">Ver tus mensajes</string>
     <string name="touchscreen_gesture_action_play_pause_music">Reproducir/pausar reproducción de música</string>
-    <string name="touchscreen_gesture_action_previous_track">Desplácese hasta la pista de música anterior</string>
+    <string name="touchscreen_gesture_action_previous_track">Desplázate hasta la pista de música anterior</string>
     <string name="touchscreen_gesture_action_next_track">Saltar a la siguiente pista de música</string>
     <string name="touchscreen_gesture_action_volume_down">Menor volumen multimedia</string>
     <string name="touchscreen_gesture_action_volume_up">Mayor volumen multimedia</string>
@@ -515,7 +516,7 @@
     <string name="trust_feature_encryption_value_enabled">Activado</string>
     <string name="trust_feature_encryption_value_nolock">Necesita una pantalla de bloqueo segura</string>
     <string name="trust_feature_encryption_value_disabled">Desactivado</string>
-    <string name="trust_feature_encryption_explain">Cifrar el dispositivo impide el acceso a tus datos cuando el teléfono no se inicia en Android. Esto es particularmente importante si el teléfono es robado, ya que evita que la gente vea tus mensajes, contactos y otra información privada sin tu contraseña.\nPara hacer el cifrado más efectivo, es necesario establecer una contraseña segura en la pantalla de bloqueo.</string>
+    <string name="trust_feature_encryption_explain">Cifrar el dispositivo impide el acceso a tus datos cuando el teléfono no se inicia en Android. Esto es particularmente importante si el teléfono es robado, ya que evita que se acceda a tus mensajes, contactos y otra información privada sin tu contraseña.\nPara hacer el cifrado más efectivo, es necesario establecer una contraseña segura en la pantalla de bloqueo.</string>
     <string name="trust_category_tools">Privacidad</string>
     <string name="trust_notification_alerts_title">Alertas de seguridad</string>
     <string name="trust_warnings_alerts_intro">Puedes seleccionar los problemas de seguridad de los que deseas ser avisado. Para tu seguridad, se recomienda habilitar todas las alertas</string>

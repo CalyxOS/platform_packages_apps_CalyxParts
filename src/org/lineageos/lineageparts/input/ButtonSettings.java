@@ -1,13 +1,14 @@
 /*
  * SPDX-FileCopyrightText: 2016 The CyanogenMod project
- * SPDX-FileCopyrightText: 2017-2024 The LineageOS project
+ * SPDX-FileCopyrightText: 2017-2025 The LineageOS project
  * SPDX-License-Identifier: Apache-2.0
  */
 
 package org.lineageos.lineageparts.input;
 
-import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_2BUTTON;
-import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL_OVERLAY;
+import static com.android.systemui.shared.recents.utilities.Utilities.isLargeScreen;
+
+import static org.lineageos.internal.util.DeviceKeysConstants.*;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -29,7 +30,7 @@ import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreferenceCompat;
 
-import static com.android.systemui.shared.recents.utilities.Utilities.isLargeScreen;
+import lineageos.providers.LineageSettings;
 
 import org.lineageos.lineageparts.R;
 import org.lineageos.lineageparts.SettingsPreferenceFragment;
@@ -38,11 +39,7 @@ import org.lineageos.lineageparts.search.Searchable;
 import org.lineageos.lineageparts.utils.DeviceUtils;
 import org.lineageos.lineageparts.utils.TelephonyUtils;
 
-import static org.lineageos.internal.util.DeviceKeysConstants.*;
-
 import java.util.Set;
-
-import lineageos.providers.LineageSettings;
 
 public class ButtonSettings extends SettingsPreferenceFragment
         implements Preference.OnPreferenceChangeListener, Searchable {
@@ -50,7 +47,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
 
     private static final String KEY_VOLUME_KEY_CURSOR_CONTROL = "volume_key_cursor_control";
     private static final String KEY_VOLUME_ANSWER_CALL = "volume_answer_call";
-    private static final String KEY_NAVIGATION_ARROW_KEYS = "navigation_bar_menu_arrow_keys";
     private static final String KEY_POWER_END_CALL = "power_end_call";
     private static final String KEY_VOLUME_MUSIC_CONTROLS = "volbtn_music_controls";
     private static final String KEY_TORCH_LONG_PRESS_POWER_GESTURE =
@@ -65,7 +61,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
     private static final String CATEGORY_NAVBAR = "navigation_bar_category";
 
     private ListPreference mVolumeKeyCursorControl;
-    private SwitchPreferenceCompat mNavigationArrowKeys;
     private SwitchPreferenceCompat mPowerEndCall;
     private ListPreference mTorchLongPressPowerTimeout;
     private SwitchPreferenceCompat mNavBarInverse;
@@ -100,9 +95,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 torchLongPressPowerTimeout);
 
         mNavigationPreferencesCat = findPreference(CATEGORY_NAVBAR);
-
-        // Navigation bar arrow keys while typing
-        mNavigationArrowKeys = findPreference(KEY_NAVIGATION_ARROW_KEYS);
 
         if (hasPowerKey) {
             if (!TelephonyUtils.isVoiceCapable(requireActivity())) {
@@ -143,7 +135,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 mEnableTaskbar.setChecked(LineageSettings.System.getInt(resolver,
                         LineageSettings.System.ENABLE_TASKBAR,
                         isLargeScreen(requireContext()) ? 1 : 0) == 1);
-                toggleTaskBarDependencies(mEnableTaskbar.isChecked());
             }
         }
     }
@@ -201,21 +192,11 @@ public class ButtonSettings extends SettingsPreferenceFragment
                     LineageSettings.System.TORCH_LONG_PRESS_POWER_TIMEOUT);
             return true;
         } else if (preference == mEnableTaskbar) {
-            toggleTaskBarDependencies((Boolean) newValue);
-            if ((Boolean) newValue && is2ButtonNavigationEnabled(requireContext())) {
-                // Let's switch to gestural mode if user previously had 2 buttons enabled.
-                setButtonNavigationMode(NAV_BAR_MODE_GESTURAL_OVERLAY);
-            }
             LineageSettings.System.putInt(getContentResolver(),
                     LineageSettings.System.ENABLE_TASKBAR, ((Boolean) newValue) ? 1 : 0);
             return true;
         }
         return false;
-    }
-
-    private static boolean is2ButtonNavigationEnabled(Context context) {
-        return NAV_BAR_MODE_2BUTTON == context.getResources().getInteger(
-                com.android.internal.R.integer.config_navBarInteractionMode);
     }
 
     private static void setButtonNavigationMode(String overlayPackage) {
@@ -226,11 +207,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
-    }
-
-    private void toggleTaskBarDependencies(boolean enabled) {
-        enablePreference(mNavigationArrowKeys, !enabled);
-        enablePreference(mNavBarInverse, !enabled);
     }
 
     private void enablePreference(Preference pref, boolean enabled) {
@@ -295,11 +271,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
                 result.add(KEY_ENABLE_TASKBAR);
             }
 
-            if (hasNavigationBar()) {
-                if (DeviceUtils.isEdgeToEdgeEnabled(context)) {
-                    result.add(KEY_NAVIGATION_ARROW_KEYS);
-                }
-            }
             return result;
         }
     };

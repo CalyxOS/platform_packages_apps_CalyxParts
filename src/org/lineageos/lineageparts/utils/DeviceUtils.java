@@ -1,11 +1,9 @@
 /*
  * SPDX-FileCopyrightText: 2016 The CyanogenMod project
- * SPDX-FileCopyrightText: 2017-2023 The LineageOS project
+ * SPDX-FileCopyrightText: 2017-2025 The LineageOS project
  * SPDX-License-Identifier: Apache-2.0
  */
 package org.lineageos.lineageparts.utils;
-
-import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -18,8 +16,6 @@ import android.view.DisplayCutout;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.Surface;
-
-import static org.lineageos.internal.util.DeviceKeysConstants.*;
 
 import androidx.annotation.NonNull;
 
@@ -94,10 +90,5 @@ public class DeviceUtils {
             // Ignore
         }
         return false;
-    }
-
-    public static boolean isEdgeToEdgeEnabled(Context context) {
-        return NAV_BAR_MODE_GESTURAL == context.getResources().getInteger(
-                com.android.internal.R.integer.config_navBarInteractionMode);
     }
 }

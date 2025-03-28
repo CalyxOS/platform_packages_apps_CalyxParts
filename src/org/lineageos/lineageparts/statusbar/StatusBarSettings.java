@@ -10,10 +10,10 @@ import android.view.View;
 
 import androidx.preference.Preference;
 
+import lineageos.preference.LineageSystemSettingListPreference;
+
 import org.lineageos.lineageparts.R;
 import org.lineageos.lineageparts.SettingsPreferenceFragment;
-
-import lineageos.preference.LineageSystemSettingListPreference;
 
 public class StatusBarSettings extends SettingsPreferenceFragment
         implements Preference.OnPreferenceChangeListener {

@@ -276,7 +276,7 @@
     <string name="profile_networkmode_2g3g4g">2G/3G/LTE</string>
     <string name="profile_volumeoverrides_title">Modificacións do volume</string>
     <string name="connection_state_enabled">Activar</string>
-    <string name="volume_override_summary">Estabelecer como %1$s%2$s</string>
+    <string name="volume_override_summary">Estabelecer como %1$s/%2$s</string>
     <string name="profile_volume_override_checkbox_label">Modificar o volume</string>
     <string name="profile_profiles_manage">Perfís</string>
     <string name="profile_profile_manage">Xestionar o perfil</string>
@@ -435,7 +435,7 @@
     <string name="touchscreen_gesture_settings_summary">Realizar varios xestos na pantalla para accions rápidas</string>
     <string name="touchscreen_gestures_haptic_feedback_title">Resposta háptica</string>
     <string name="touchscreen_gestures_haptic_feedback_summary">Vibrar cando se detecta un xesto táctil</string>
-    <string name="touchscreen_gesture_two_finger_down_swipe_title">Deslizar hacia abaixo con dos dedos</string>
+    <string name="touchscreen_gesture_two_fingers_down_swipe_title">Deslizar hacia abaixo con dos dedos</string>
     <string name="touchscreen_gesture_one_finger_up_swipe_title">Deslizar hacia arriba con un dedo</string>
     <string name="touchscreen_gesture_one_finger_up_swipe_home_title">Deslizar cara arriba dende o botón de inicio</string>
     <string name="touchscreen_gesture_one_finger_down_swipe_title">Deslizar hacia abaixo con un dedo</string>

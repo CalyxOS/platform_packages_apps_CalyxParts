@@ -5,10 +5,12 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:lineage="http://schemas.android.com/apk/res-auto"
-        android:key="button_settings"
-        android:title="@string/button_pref_title">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:lineage="http://schemas.android.com/apk/res-auto"
+    android:key="button_settings"
+    android:title="@string/button_pref_title">
 
     <PreferenceCategory
         android:key="navigation_bar_category"

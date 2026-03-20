@@ -126,6 +126,7 @@ public class ButtonSettings extends SettingsPreferenceFragment
         if (mEnableTaskbar != null) {
             if (!isLargeScreen(requireContext()) || !hasNavigationBar()) {
                 mNavigationPreferencesCat.removePreference(mEnableTaskbar);
+                prefScreen.removePreference(mNavigationPreferencesCat);
             } else {
                 mEnableTaskbar.setOnPreferenceChangeListener(this);
                 mEnableTaskbar.setChecked(LineageSettings.System.getInt(resolver,

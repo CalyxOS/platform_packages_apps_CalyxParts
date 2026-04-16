@@ -7,17 +7,15 @@ package org.lineageos.lineageparts.statusbar;
 
 import static org.lineageos.lineageparts.utils.ResourceUtils.isRtlMode;
 
+import android.content.res.Resources;
 import android.os.Bundle;
-
-import androidx.preference.Preference;
 
 import lineageos.preference.LineageSystemSettingListPreference;
 
 import org.lineageos.lineageparts.R;
 import org.lineageos.lineageparts.SettingsPreferenceFragment;
 
-public class StatusBarSettings extends SettingsPreferenceFragment
-        implements Preference.OnPreferenceChangeListener {
+public class StatusBarSettings extends SettingsPreferenceFragment {
 
     private static final String STATUS_BAR_QUICK_QS_PULLDOWN = "qs_quick_pulldown";
 
@@ -33,8 +31,25 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         addPreferencesFromResource(R.xml.status_bar_settings);
 
         mQuickPulldown = findPreference(STATUS_BAR_QUICK_QS_PULLDOWN);
-        mQuickPulldown.setOnPreferenceChangeListener(this);
-        updateQuickPulldownSummary(mQuickPulldown.getIntValue(0));
+        mQuickPulldown.setSummaryProvider(preference -> {
+            int value = Integer.parseInt(
+                    ((LineageSystemSettingListPreference) preference).getValue());
+            Resources res = preference.getContext().getResources();
+
+            switch (value) {
+                case PULLDOWN_DIR_NONE:
+                    return res.getString(R.string.status_bar_quick_qs_pulldown_off);
+                case PULLDOWN_DIR_LEFT:
+                case PULLDOWN_DIR_RIGHT:
+                    int side = (value == PULLDOWN_DIR_LEFT) ^ isRtlMode(res)
+                            ? R.string.status_bar_quick_qs_pulldown_summary_left
+                            : R.string.status_bar_quick_qs_pulldown_summary_right;
+
+                    return res.getString(R.string.status_bar_quick_qs_pulldown_summary,
+                            res.getString(side));
+            }
+            return "";
+        });
     }
 
     @Override
@@ -47,38 +62,5 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         } else {
             mQuickPulldown.setEntries(R.array.status_bar_quick_qs_pulldown_entries);
         }
-    }
-
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        int value = Integer.parseInt((String) newValue);
-        String key = preference.getKey();
-        switch (key) {
-            case STATUS_BAR_QUICK_QS_PULLDOWN:
-                updateQuickPulldownSummary(value);
-                break;
-        }
-        return true;
-    }
-
-    private void updateQuickPulldownSummary(int value) {
-        String summary="";
-        switch (value) {
-            case PULLDOWN_DIR_NONE:
-                summary = getResources().getString(
-                    R.string.status_bar_quick_qs_pulldown_off);
-                break;
-
-            case PULLDOWN_DIR_LEFT:
-            case PULLDOWN_DIR_RIGHT:
-                summary = getResources().getString(
-                    R.string.status_bar_quick_qs_pulldown_summary,
-                    getResources().getString(
-                        (value == PULLDOWN_DIR_LEFT) ^ isRtlMode(getResources())
-                        ? R.string.status_bar_quick_qs_pulldown_summary_left
-                        : R.string.status_bar_quick_qs_pulldown_summary_right));
-                break;
-        }
-        mQuickPulldown.setSummary(summary);
     }
 }
